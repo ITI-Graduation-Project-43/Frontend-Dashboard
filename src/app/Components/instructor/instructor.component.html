@@ -1,0 +1,100 @@
+<div class="wrapper">
+
+  <div class="mat-elevation-z8">
+    <div class="mat-table-responsive">
+      <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="Id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let row">{{row.Id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="FirstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>FirstName</th>
+          <td mat-cell *matCellDef="let row">{{row.FirstName}}</td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="LastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>LastName</th>
+          <td mat-cell *matCellDef="let row">{{row.LastName}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+          <td mat-cell *matCellDef="let row">{{row.Title}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="NoOfCourses">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Courses</th>
+          <td mat-cell *matCellDef="let row">{{row.NoOfCourses}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="NoOfStudents">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Students</th>
+          <td mat-cell *matCellDef="let row">{{row.NoOfStudents}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="AvgRating">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>AvgRating</th>
+          <td mat-cell *matCellDef="let row">{{row.AvgRating}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="NoOfRating">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Rating</th>
+          <td mat-cell *matCellDef="let row">{{row.NoOfRating}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="CreatedAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CreatedAt</th>
+          <td mat-cell *matCellDef="let row">{{row.CreatedAt | date}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="UpdatedAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>UpdatedAt</th>
+          <td mat-cell *matCellDef="let row">{{row.UpdatedAt | date}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Visibility" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" stickyEnd>
+            <mat-icon>visibility</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Edit" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" stickyEnd>
+            <mat-icon>edit</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Delete" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" stickyEnd>
+            <mat-icon>delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+
+    <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>
