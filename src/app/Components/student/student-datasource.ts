@@ -5,33 +5,34 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface StudentItem {
-  name: string;
+export interface Student {
   id: number;
+  firstName: string;
+  lastName: string;
 }
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: StudentItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+let EXAMPLE_DATA: Student[] = [
+  { id: 1, firstName: 'Mohamed', lastName: 'Aly' },
+  { id: 2, firstName: 'Sayed', lastName: 'Hesham' },
+  { id: 3, firstName: 'Mostafa', lastName: 'Elsayed' },
+  { id: 4, firstName: 'essam', lastName: 'Mourtada' },
+  { id: 5, firstName: 'Ahmed', lastName: 'AlAlfy' },
+  { id: 6, firstName: 'Sawsan', lastName: 'Bedier' },
+  { id: 7, firstName: 'Nada', lastName: 'Mohamed' },
+  { id: 8, firstName: 'Alaa', lastName: 'Mandor' },
+  { id: 9, firstName: 'Mohamed', lastName: 'Ibraheem' },
+  { id: 10, firstName: 'Mahmoud', lastName: 'Menyawy' },
+  { id: 11, firstName: 'Abdelrahman', lastName: 'Ouf' },
+  { id: 12, firstName: 'Tarek', lastName: 'Eslam' },
+  { id: 13, firstName: 'Ramadan', lastName: 'Galal' },
+  { id: 14, firstName: 'Mohamed', lastName: 'Sameh' },
+  { id: 15, firstName: 'Raed', lastName: 'Mourad' },
+  { id: 16, firstName: 'Aya', lastName: 'Ahmed' },
+  { id: 17, firstName: 'Sara', lastName: 'Alaa' },
+  { id: 18, firstName: 'Mahmoud', lastName: 'Yasser' },
+  { id: 19, firstName: 'Basel', lastName: 'Atef' },
+  { id: 20, firstName: 'Mohamed', lastName: 'Roshdy' },
 ];
 
 /**
@@ -39,8 +40,8 @@ const EXAMPLE_DATA: StudentItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class StudentDataSource extends DataSource<StudentItem> {
-  data: StudentItem[] = EXAMPLE_DATA;
+export class StudentDataSource extends DataSource<Student> {
+  data: Student[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -53,16 +54,23 @@ export class StudentDataSource extends DataSource<StudentItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<StudentItem[]> {
+  connect(): Observable<Student[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
-      return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
-        .pipe(map(() => {
-          return this.getPagedData(this.getSortedData([...this.data ]));
-        }));
+      return merge(
+        observableOf(this.data),
+        this.paginator.page,
+        this.sort.sortChange
+      ).pipe(
+        map(() => {
+          return this.getPagedData(this.getSortedData([...this.data]));
+        })
+      );
     } else {
-      throw Error('Please set the paginator and sort on the data source before connecting.');
+      throw Error(
+        'Please set the paginator and sort on the data source before connecting.'
+      );
     }
   }
 
@@ -76,7 +84,7 @@ export class StudentDataSource extends DataSource<StudentItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: StudentItem[]): StudentItem[] {
+  private getPagedData(data: Student[]): Student[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -89,7 +97,7 @@ export class StudentDataSource extends DataSource<StudentItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: StudentItem[]): StudentItem[] {
+  private getSortedData(data: Student[]): Student[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -97,15 +105,26 @@ export class StudentDataSource extends DataSource<StudentItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        default: return 0;
+        case 'fullName':
+          return compare(
+            a.firstName + ' ' + a.lastName,
+            b.firstName + ' ' + b.lastName,
+            isAsc
+          );
+        case 'id':
+          return compare(+a.id, +b.id, isAsc);
+        default:
+          return 0;
       }
     });
   }
 }
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a: string | number, b: string | number, isAsc: boolean): number {
+function compare(
+  a: string | number,
+  b: string | number,
+  isAsc: boolean
+): number {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

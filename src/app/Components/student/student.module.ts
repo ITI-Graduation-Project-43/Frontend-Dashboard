@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { StudentRoutingModule } from './student-routing.module';
 import { StudentComponent } from './student.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -14,7 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
     StudentRoutingModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
-  ]
+    MatSortModule,
+  ],
 })
-export class StudentModule { }
+export class StudentModule {}
