@@ -66,7 +66,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="Visibility" stickyEnd>
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let row" stickyEnd>
+          <td mat-cell *matCellDef="let row" stickyEnd (click)="openDetailsDialog(row)">
             <mat-icon>visibility</mat-icon>
           </td>
         </ng-container>
@@ -82,7 +82,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="Delete" stickyEnd>
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let row" stickyEnd>
+          <td mat-cell *matCellDef="let row" stickyEnd (click)="openDeleteDialog(row.FirstName+row.LastName, row.Id)">
             <mat-icon>delete</mat-icon>
           </td>
         </ng-container>
