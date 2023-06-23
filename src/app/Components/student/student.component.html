@@ -1,30 +1,99 @@
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-    </ng-container>
+<div class="wrapper">
+  <div class="mat-elevation-z8">
+    <div class="mat-table-responsive">
+      <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef=" ">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row">
+            <img
+              [src]="row.profilePicture"
+              mat-card-image
+              style="border-radius: 20px; width: 40px; height: 40px"
+            />
+          </td>
+        </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.firstName }} {{ row.lastName }}
-      </td>
-    </ng-container>
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+        <!-- Name Column -->
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.firstName }} {{ row.lastName }}
+          </td>
+        </ng-container>
 
-  <mat-paginator
-    #paginator
-    [length]="dataSource.data.length"
-    [pageIndex]="0"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 20]"
-    aria-label="Select page"
-  >
-  </mat-paginator>
+        <!-- Name Column -->
+        <ng-container matColumnDef="Bio">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Bio</th>
+          <td mat-cell *matCellDef="let row">{{ row.bio }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="NoOfCourses">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Courses</th>
+          <td mat-cell *matCellDef="let row">{{ row.numCourses }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="NoOfWishlists">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Wishlists</th>
+          <td mat-cell *matCellDef="let row">{{ row.numWishlists }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="CreatedAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CreatedAt</th>
+          <td mat-cell *matCellDef="let row">{{ row.createdAt | date }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="UpdatedAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>UpdatedAt</th>
+          <td mat-cell *matCellDef="let row">{{ row.updatedAt | date }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Visibility" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" stickyEnd>
+            <mat-icon>visibility</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Edit" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" stickyEnd>
+            <mat-icon>edit</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Delete" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row" stickyEnd>
+            <mat-icon>delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <mat-paginator
+      #paginator
+      [length]="dataSource.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
 </div>
