@@ -1,0 +1,13 @@
+.mat-mdc-card-header{
+    align-items: center;
+}
+
+.mat-mdc-card-avatar{
+    width: 100px;
+    height: 100px;
+}
+.mat-mdc-card-avatar img {
+    width: 100%;
+    border-radius: 50%;
+    border: 1px solid black;
+}
