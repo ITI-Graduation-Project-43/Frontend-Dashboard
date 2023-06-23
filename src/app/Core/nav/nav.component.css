@@ -15,3 +15,13 @@
   top: 0;
   z-index: 1;
 }
+
+.mat-sidenav{
+  left: 0;
+  width: 210 px;
+}
+
+.sidenav {
+  width: 210px;
+  margin-right: 0;
+}
