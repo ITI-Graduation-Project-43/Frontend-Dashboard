@@ -11,7 +11,10 @@
   overflow-x: auto;
 }
 
-
 .mat-mdc-table-sticky-border-elem-right {
   border-left: 1px solid black;
+}
+
+.mat-icon {
+  cursor: pointer;
 }

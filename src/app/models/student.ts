@@ -1,11 +1,11 @@
 export interface Student {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   bio: string;
   profilePicture?: string;
   numCourses: number;
-  numWishlists: number;
+  numWishlist: number;
   createdAt: Date;
   updatedAt: Date;
 }
