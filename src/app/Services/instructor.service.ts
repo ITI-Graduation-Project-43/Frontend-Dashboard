@@ -1,5 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { Instructor } from '../Models/instructor';
+import { APIService } from '../shared/Services/api.service';
+import { APIResponseVM } from '../shared/ViewModels/apiresponse-vm';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { InstructorDataSource } from '../Components/instructor/instructor-list/instructor-datasource';
 
 @Injectable({
@@ -9,158 +13,45 @@ import { InstructorDataSource } from '../Components/instructor/instructor-list/i
 
 export class InstructorService {
 
-  constructor() { }
-  sampleData:Instructor[] = [
-    {
-      Id: '1',
-      FirstName: 'John',
-      LastName: 'Doe',
-      Bio: 'John Doe is a computer science professor with over 10 years of teaching experience.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'John teaches courses on computer programming and software engineering.',
-      NoOfCourses: 50,
-      NoOfStudents: 100,
-      AvgRating: 4.5,
-      NoOfRating: 20,
-      CreatedAt: new Date('2022-01-01'),
-      UpdatedAt: new Date('2022-01-01'),
-    },
-    {
-      Id: '2',
-      FirstName: 'Jane',
-      LastName: 'Smith',
-      Bio: 'Jane Smith is a math professor with a passion for teaching.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Jane teaches courses on calculus and statistics.',
-      NoOfCourses: 30,
-      NoOfStudents: 50,
-      AvgRating: 4.0,
-      NoOfRating: 10,
-      CreatedAt: new Date('2022-01-02'),
-      UpdatedAt: new Date('2022-01-02'),
-    },
-    {
-      Id: '3',
-      FirstName: 'Mark',
-      LastName: 'Johnson',
-      Bio: 'Mark Johnson is a physics professor with a passion for research.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Mark teaches courses on classical mechanics and quantum mechanics.',
-      NoOfCourses: 20,
-      NoOfStudents: 30,
-      AvgRating: 4.2,
-      NoOfRating: 8,
-      CreatedAt: new Date('2022-01-03'),
-      UpdatedAt: new Date('2022-01-03'),
-    },
-    {
-      Id: '4',
-      FirstName: 'Sarah',
-      LastName: 'Lee',
-      Bio: 'Sarah Lee is a biology professor with a passion for ecology.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Sarah teaches courses on ecology and environmental science.',
-      NoOfCourses: 40,
-      NoOfStudents: 60,
-      AvgRating: 4.3,
-      NoOfRating: 12,
-      CreatedAt: new Date('2022-01-04'),
-      UpdatedAt: new Date('2022-01-04'),
-    },
-    {
-      Id: '5',
-      FirstName: 'David',
-      LastName: 'Brown',
-      Bio: 'David Brown is a chemistry professor with a passion for organic chemistry.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'David teaches courses on organic chemistry and biochemistry.',
-      NoOfCourses: 30,
-      NoOfStudents: 50,
-      AvgRating: 4.6,
-      NoOfRating: 15,
-      CreatedAt: new Date('2022-01-05'),
-      UpdatedAt: new Date('2022-01-05'),
-    },
-    {
-      Id: '6',
-      FirstName: 'Emily',
-      LastName: 'Davis',
-      Bio: 'Emily Davis is a history professor with a passion for ancient civilizations.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Emily teaches courses on ancient history and world civilizations.',
-      NoOfCourses: 20,
-      NoOfStudents: 40,
-      AvgRating: 4.1,
-      NoOfRating: 10,
-      CreatedAt: new Date('2022-01-06'),
-      UpdatedAt: new Date('2022-01-06'),
-    },
-    {
-      Id: '7',
-      FirstName: 'Michael',
-      LastName: 'Wilson',
-      Bio: 'Michael Wilson is a psychology professor with a passion for cognitive neuroscience.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Michael teaches courses on cognitive psychology and neuroscience.',
-      NoOfCourses: 30,
-      NoOfStudents: 70,
-      AvgRating: 4.4,
-      NoOfRating: 18,
-      CreatedAt: new Date('2022-01-07'),
-      UpdatedAt: new Date('2022-01-07'),
-    },
-    {
-      Id: '8',
-      FirstName: 'Karen',
-      LastName: 'Taylor',
-      Bio: 'Karen Taylor is an English professor with a passion for literature.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Karen teaches courses on Shakespeare and modern literature.',
-      NoOfCourses: 20,
-      NoOfStudents: 30,
-      AvgRating: 4.0,
-      NoOfRating: 10,
-      CreatedAt: new Date('2022-01-08'),
-      UpdatedAt: new Date('2022-01-08'),
-    },
-    {
-      Id: '9',
-      FirstName: 'William',
-      LastName: 'Clark',
-      Bio: 'William Clark is a geography professor with a passion for cartography.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'William teaches courses on cartography and geographic information systems.',
-      NoOfCourses: 30,
-      NoOfStudents: 50,
-      AvgRating: 4.2,
-      NoOfRating: 12,
-      CreatedAt: new Date('2022-01-09'),
-      UpdatedAt: new Date('2022-01-09'),
-    },
-    {
-      Id: '10',
-      FirstName: 'Elizabeth',
-      LastName: 'Garcia',
-      Bio: 'Elizabeth Garcia is a Spanish professor with a passion for Latin American literature.',
-      ProfilePicture: 'https://freepngimg.com/save/22654-man/594x600',
-      Title: 'Professor',
-      Description: 'Elizabeth teaches courses on Spanish language and Latin American literature.',
-      NoOfCourses: 40,
-      NoOfStudents: 80,
-      AvgRating: 4.5,
-      NoOfRating: 20,
-      CreatedAt: new Date('2022-01-10'),
-      UpdatedAt: new Date('2022-01-10'),
-    }
-  ];
+  dataSource!: InstructorDataSource;
+  private dataSubject = new BehaviorSubject<any>(null);
+
+  setData(data:any){
+    this.dataSubject.next(data);
+  }
+
+  getData(){
+    return this.dataSubject.asObservable();
+  }
+
+
+  constructor(private apiService:APIService) {}
+
+  getAllInstructors(): Observable<Instructor[]> {
+    return this.apiService.getAllItem("Instructor").pipe(
+      map((data: APIResponseVM) => data.items as Instructor[])
+    );
+  }
+
+  RemoveInstructor(id:string): Observable<Instructor[]> {
+    return this.apiService.deleteItem(`Instructor/${id}`)
+    .pipe(
+      map((data:APIResponseVM) => data.items as Instructor[])
+    );
+  }
+
+  AddInstructor(instructor:Instructor): Observable<Instructor[]> {
+    return this.apiService.addItem(`User/Register/Instructor`,instructor)
+    .pipe(
+      map((data:APIResponseVM) => data.items as Instructor[])
+    );
+  }
+
+  UpdateInstructor(instructor:Instructor, id:string): Observable<[]> {
+    return this.apiService.updateItem(`Instructor/${id}`,instructor)
+    .pipe(
+      map((data:APIResponseVM) => data.items)
+    );
+  }
 
 }
