@@ -83,5 +83,19 @@
 
   <input type="date" formControlName="updatedAt" [hidden]="true" />
 
-  <button mat-button type="submit" [mat-dialog-close]="1">Submit</button>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" formControlName="description"
+                value={{instructor.description}}></textarea>
+            <mat-error *ngIf="form.get('description')?.invalid">Description is required</mat-error>
+        </mat-form-field>
+    </div>
+
+
+    <input type="date" formControlName="updatedAt" [hidden]="true">
+
+    <button mat-button type="submit" [disabled]="loading">
+        Submit
+        <app-loader class="loader" *ngIf="loading"></app-loader>
+    </button>
 </form>

@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstructorService } from '../../../services/instructor.service';
 import { Instructor } from 'src/app/models/instructor';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Instructor } from 'src/app/Models/instructor';
+import { InstructorService } from 'src/app/Services/instructor.service';
 
 @Component({
   selector: 'app-instructor-update',
@@ -13,11 +16,13 @@ export class InstructorUpdateComponent {
   form!: FormGroup;
   @Input() instructor!: Instructor;
   headerInfo: string = 'Update Instructor';
+  @Input() instructor!: Instructor;
+  loading: boolean = false;
+  headerInfo: string = 'Update Instructor';
 
   constructor(
     private fb: FormBuilder,
-    public instructorService: InstructorService,
-    public dialogRef: MatDialogRef<InstructorUpdateComponent>
+    public instructorService: InstructorService
   ) {}
 
   ngOnInit() {
@@ -34,6 +39,8 @@ export class InstructorUpdateComponent {
 
   onSubmit() {
     console.log(this.form.value);
+    this.loading = true;
+    console.log(this.form.value);
     this.instructorService.uploadImage(this.instructor.id);
     this.instructorService
       .UpdateInstructor(this.form.value, this.instructor.id)
@@ -42,6 +49,18 @@ export class InstructorUpdateComponent {
           .getAllInstructors()
           .subscribe((data: Instructor[]) => {
             this.instructorService.setData(data);
+          });
+      });
+    console.log('updated success');
+    this.instructorService
+      .UpdateInstructor(this.form.value, this.instructor.id)
+      .subscribe((data: []) => {
+        this.instructorService
+          .getAllInstructors()
+          .subscribe((data: Instructor[]) => {
+            this.instructorService.setData(data);
+            this.loading = false;
+            this.dialogRef.close();
           });
       });
     console.log('updated success');

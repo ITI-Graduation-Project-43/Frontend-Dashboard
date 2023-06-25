@@ -6,7 +6,7 @@ import { InstructorService } from '../../../services/instructor.service';
 @Component({
   selector: 'app-instructor-delete',
   templateUrl: './instructor-delete.component.html',
-  styleUrls: ['./instructor-delete.component.sass'],
+  styleUrls: ['./instructor-delete.component.scss'],
 })
 export class InstructorDeleteComponent {
   constructor(
@@ -16,16 +16,19 @@ export class InstructorDeleteComponent {
   @Input() instructorFirstName!: string;
   @Input() instructorLastName!: string;
   @Input() instructorId!: string;
+  loading: boolean = false;
+  headerInfo: string = 'Delete Instructor';
 
   delete(id: string) {
+    this.loading = true;
     this.instructorService
       .RemoveInstructor(id)
       .subscribe((data: Instructor[]) => {
         this.instructorService.setData(data);
-        console.log('deleted successfully');
+        this.loading = false;
+        this.dialogRef.close();
       });
   }
-
   cancel() {
     this.dialogRef.close();
   }
