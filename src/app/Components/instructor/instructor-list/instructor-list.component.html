@@ -1,6 +1,10 @@
 <div class="wrapper">
 
   <div class="mat-elevation-z8">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
     <div class="mat-table-responsive">
       <table mat-table class="full-width-table" matSort aria-label="Elements">
 
