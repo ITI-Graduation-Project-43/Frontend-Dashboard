@@ -28,12 +28,11 @@ export class StudentComponent implements OnInit {
     'id',
     'FirstName',
     'LastName',
-    'Bio',
     'NoOfCourses',
     'NoOfWishlists',
-    'CreatedAt',
-    'UpdatedAt',
-    'actions',
+    'Visibility',
+    'Edit',
+    'Delete',
   ];
   exampleDatabase!: StudentService;
   dataSource!: StudentDataSource;
@@ -74,14 +73,11 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  startEdit(i: number, student: Student) {
+  startEdit(student: Student) {
     this.id = student.id;
-    this.index = i;
     const dialogRef = this.dialog.open(StudentUpdateComponent, {
       data: student,
     });
-    // dialogRef.componentInstance.data = student;
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside DataService by id
@@ -97,15 +93,17 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  deleteItem(
-    i: number,
-    id: string,
-    firstName: string,
-    lastName: string,
-    bio: string
-  ) {
+  openDetailsDialog(student: Student): void {
+    const dialogRef = this.dialog.open(StudentUpdateComponent, {
+      data: student,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  deleteItem(id: string, firstName: string, lastName: string, bio: string) {
     this.id = id;
-    this.index = i;
     const dialogRef = this.dialog.open(StudentDeleteComponent, {
       data: { id: id, firstName: firstName, lastName: lastName, bio: bio },
     });
