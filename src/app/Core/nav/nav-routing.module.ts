@@ -17,6 +17,11 @@ const routes: Routes = [
     path: 'instructor',
     loadChildren: () => import('../../Components/instructor/instructor.module')
       .then((m) => m.InstructorModule)
+  },
+  {
+    path: 'bi',
+    loadChildren: () => import('../../Components/power-bi-report/power-bi-report.module')
+      .then((m) => m.PowerBiReportModule)
   }
 ];
 
