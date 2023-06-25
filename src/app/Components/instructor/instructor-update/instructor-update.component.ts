@@ -1,11 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstructorService } from '../../../services/instructor.service';
-import { Instructor } from 'src/app/models/instructor';
+import { Instructor } from '../../../models/instructor';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Instructor } from 'src/app/Models/instructor';
-import { InstructorService } from 'src/app/Services/instructor.service';
 
 @Component({
   selector: 'app-instructor-update',
@@ -15,14 +12,13 @@ import { InstructorService } from 'src/app/Services/instructor.service';
 export class InstructorUpdateComponent {
   form!: FormGroup;
   @Input() instructor!: Instructor;
-  headerInfo: string = 'Update Instructor';
-  @Input() instructor!: Instructor;
   loading: boolean = false;
   headerInfo: string = 'Update Instructor';
 
   constructor(
     private fb: FormBuilder,
-    public instructorService: InstructorService
+    public instructorService: InstructorService,
+    private dialogRef: MatDialogRef<InstructorUpdateComponent>
   ) {}
 
   ngOnInit() {
