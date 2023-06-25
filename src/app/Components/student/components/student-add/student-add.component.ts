@@ -38,6 +38,6 @@ export class StudentAddComponent {
   }
 
   public confirmAdd(): void {
-    this.studentService.addStudent(this.data);
+    this.studentService.AddStudent(this.data);
   }
 }

@@ -1,42 +1,39 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../../../../services/student.service';
-import { FormControl, Validators } from '@angular/forms';
+import { Student } from '../../../../models/student';
 
 @Component({
   selector: 'app-student-update',
   templateUrl: './student-update.component.html',
-  styleUrls: ['./student-update.component.css'],
+  styleUrls: ['./student-update.component.scss'],
 })
 export class StudentUpdateComponent {
-  constructor(
-    public dialogRef: MatDialogRef<StudentUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public studentService: StudentService
-  ) {}
+  form!: FormGroup;
+  @Input() data!: Student;
+  headerInfo: string = 'Update Student';
+  constructor(private fb: FormBuilder, public studentService: StudentService) {}
 
-  formControl = new FormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
+  ngOnInit() {
+    this.form = this.fb.group({
+      firstName: [this.data?.firstName, Validators.required],
+      lastName: [this.data?.lastName, Validators.required],
+      bio: [this.data?.bio, Validators.required],
+      profilePicture: [this.data?.profilePicture, Validators.required],
+      updatedAt: [new Date()],
+    });
   }
 
   submit() {
-    // emppty stuff
+    console.log(this.form.value);
+    this.studentService.uploadImage(this.data.id);
+    this.studentService.UpdateStudent(this.form.value, this.data.id);
+    console.log('updated success');
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  stopEdit(): void {
-    this.studentService.updateStudent(this.data);
+  handleFile(event: any) {
+    this.studentService.selectedFile = event.target.files[0];
+    this.studentService.uploadPlaceHolder =
+      this.studentService.selectedFile.name;
   }
 }

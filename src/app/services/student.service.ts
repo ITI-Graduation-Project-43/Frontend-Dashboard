@@ -13,6 +13,8 @@ export class StudentService {
   // Temporarily stores data from dialogs
   dialogData: any;
   data: Student[] = [];
+  selectedFile!: File;
+  uploadPlaceHolder: string = 'Upload Picture --choose file--';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -34,17 +36,6 @@ export class StudentService {
     );
   }
 
-  addStudent(Student: Student): void {
-    this.dialogData = Student;
-  }
-
-  updateStudent(Student: Student): void {
-    this.dialogData = Student;
-  }
-
-  deleteStudent(id: number): void {
-    console.log(id);
-  }
   deleteItem(id: string): void {
     this.httpClient.delete(this.API_URL + '/' + id).subscribe(
       (data) => {
@@ -54,6 +45,51 @@ export class StudentService {
         alert('Error occurred. Details: ' + err.name + ' ' + err.message);
       }
     );
+  }
+
+  UpdateStudent(student: Student, id: string): void {
+    this.httpClient.patch<any>(this.API_URL + '/' + id, student).subscribe(
+      (data: any) => {
+        console.log(data.message);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  AddStudent(student: Student): void {
+    this.httpClient.post<any>(this.API_URL, student).subscribe(
+      (data: any) => {
+        console.log(data.message);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  uploadImage(id: string) {
+    if (this.selectedFile) {
+      const formDate = new FormData();
+      formDate.append(
+        'ProfilePictureFile',
+        this.selectedFile,
+        this.selectedFile.name
+      );
+      console.log(formDate);
+
+      this.httpClient
+        .post<any>(this.API_URL + `/UploadImage?id=${id}`, formDate)
+        .subscribe(
+          (data: any) => {
+            console.log(data.message);
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+    }
   }
 }
 

@@ -30,7 +30,7 @@ export class StudentComponent implements OnInit {
     'actions',
   ];
   exampleDatabase!: StudentService;
-  dataSource!: ExampleDataSource;
+  dataSource!: StudentDataSource;
   index!: number;
   id!: string;
 
@@ -67,25 +67,10 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  startEdit(
-    i: number,
-    id: string,
-    firstName: string,
-    lastName: string,
-    bio: string
-  ) {
-    this.id = id;
-    // index row is used just for debugging proposes and can be removed
-    this.index = i;
-    console.log(this.index);
-    const dialogRef = this.dialog.open(StudentUpdateComponent, {
-      data: {
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        bio: bio,
-      },
-    });
+  startEdit(student: Student) {
+    this.id = student.id;
+    const dialogRef = this.dialog.open(StudentUpdateComponent);
+    dialogRef.componentInstance.data = student;
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
@@ -102,14 +87,7 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  deleteItem(
-    i: number,
-    id: string,
-    firstName: string,
-    lastName: string,
-    bio: string
-  ) {
-    this.index = i;
+  deleteItem(id: string, firstName: string, lastName: string, bio: string) {
     this.id = id;
     const dialogRef = this.dialog.open(StudentDeleteComponent, {
       data: { id: id, firstName: firstName, lastName: lastName, bio: bio },
@@ -133,7 +111,7 @@ export class StudentComponent implements OnInit {
 
   public loadData() {
     this.exampleDatabase = this.studentService;
-    this.dataSource = new ExampleDataSource(
+    this.dataSource = new StudentDataSource(
       this.exampleDatabase,
       this.paginator,
       this.sort
@@ -150,7 +128,7 @@ export class StudentComponent implements OnInit {
   }
 }
 
-export class ExampleDataSource extends DataSource<Student> {
+export class StudentDataSource extends DataSource<Student> {
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
