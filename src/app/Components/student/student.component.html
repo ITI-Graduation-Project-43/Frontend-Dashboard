@@ -87,8 +87,8 @@
             </button>
           </mat-header-cell>
 
-          <mat-cell *matCellDef="let row" stickyEnd>
-            <button mat-icon-button color="accent" (click)="startEdit(row)">
+          <mat-cell *matCellDef="let row; let i = index" stickyEnd>
+            <button mat-icon-button color="accent" (click)="startEdit(i, row)">
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
 
@@ -96,7 +96,7 @@
               mat-icon-button
               color="accent"
               (click)="
-                deleteItem( row.id, row.firstName, row.lastName, row.bio)
+                deleteItem(i, row.id, row.firstName, row.lastName, row.bio)
               "
             >
               <mat-icon aria-label="Delete">delete</mat-icon>

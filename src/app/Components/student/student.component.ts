@@ -67,8 +67,9 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  startEdit(student: Student) {
+  startEdit(i: number, student: Student) {
     this.id = student.id;
+    this.index = i;
     const dialogRef = this.dialog.open(StudentUpdateComponent);
     dialogRef.componentInstance.data = student;
 
@@ -87,8 +88,15 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  deleteItem(id: string, firstName: string, lastName: string, bio: string) {
+  deleteItem(
+    i: number,
+    id: string,
+    firstName: string,
+    lastName: string,
+    bio: string
+  ) {
     this.id = id;
+    this.index = i;
     const dialogRef = this.dialog.open(StudentDeleteComponent, {
       data: { id: id, firstName: firstName, lastName: lastName, bio: bio },
     });
