@@ -14,6 +14,9 @@ import { InstructorDataSource } from '../Components/instructor/instructor-list/i
 export class InstructorService {
 
   dataSource!: InstructorDataSource;
+  selectedFile!:File;
+  uploadPlaceHolder:string = 'Upload Picture --choose file--'
+
   private dataSubject = new BehaviorSubject<any>(null);
 
   setData(data:any){
@@ -52,6 +55,17 @@ export class InstructorService {
     .pipe(
       map((data:APIResponseVM) => data.items)
     );
+  }
+
+  uploadImage(id:string){
+    if(this.selectedFile){
+      const formDate = new FormData();
+      formDate.append('ProfilePictureFile',this.selectedFile,this.selectedFile.name);
+
+      this.apiService.addItem(`Instructor/UploadImage?id=${id}`,formDate).subscribe((data:APIResponseVM)=>{
+        console.log(data.message);
+      })
+    }
   }
 
 }
