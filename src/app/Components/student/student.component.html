@@ -33,13 +33,13 @@
         <!-- #Courses Column -->
         <ng-container matColumnDef="NoOfCourses">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>#Courses</th>
-          <td mat-cell *matCellDef="let row">{{ row.numCourses }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.noOfCourses }}</td>
         </ng-container>
 
         <!-- #Wishlists Column -->
         <ng-container matColumnDef="NoOfWishlists">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>#Wishlists</th>
-          <td mat-cell *matCellDef="let row">{{ row.numWishlist }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.noOfWishlist }}</td>
         </ng-container>
 
         <!-- Visibility Column -->
@@ -72,7 +72,7 @@
             mat-cell
             *matCellDef="let row"
             stickyEnd
-            (click)="deleteItem(row.id, row.firstName, row.lastName, row.bio)"
+            (click)="deleteItem(row)"
           >
             <mat-icon>delete</mat-icon>
           </td>

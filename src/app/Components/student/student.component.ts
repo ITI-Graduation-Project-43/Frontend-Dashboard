@@ -17,6 +17,7 @@ import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StudentService } from 'src/app/services/student.service';
 import { Student } from 'src/app/Models/student';
+import { StudentDetailsComponent } from './components/student-details/student-details.component';
 
 @Component({
   selector: 'app-student',
@@ -94,7 +95,7 @@ export class StudentComponent implements OnInit {
   }
 
   openDetailsDialog(student: Student): void {
-    const dialogRef = this.dialog.open(StudentUpdateComponent, {
+    const dialogRef = this.dialog.open(StudentDetailsComponent, {
       data: student,
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -102,10 +103,9 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  deleteItem(id: string, firstName: string, lastName: string, bio: string) {
-    this.id = id;
+  deleteItem(row: Student) {
     const dialogRef = this.dialog.open(StudentDeleteComponent, {
-      data: { id: id, firstName: firstName, lastName: lastName, bio: bio },
+      data: row,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

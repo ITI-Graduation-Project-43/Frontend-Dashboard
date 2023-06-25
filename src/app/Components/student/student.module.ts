@@ -17,6 +17,8 @@ import { StudentUpdateComponent } from './components/student-update/student-upda
 import { StudentDeleteComponent } from './components/student-delete/student-delete.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StudentDetailsComponent } from './components/student-details/student-details.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     StudentAddComponent,
     StudentUpdateComponent,
     StudentDeleteComponent,
+    StudentDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -32,12 +35,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatTableModule,
     MatSortModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+    MatCardModule,
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
     HttpClientModule,
     SharedModule,
   ],
