@@ -1,5 +1,6 @@
 .mat-mdc-card-header{
     align-items: center;
+    padding:0;
 }
 
 .mat-mdc-card-avatar{
@@ -8,6 +9,15 @@
 }
 .mat-mdc-card-avatar img {
     width: 100%;
+    height: 100%;
     border-radius: 50%;
     border: 1px solid black;
+}
+
+.mat-mdc-card{
+    padding: 2rem;
+}
+
+button{
+    margin-top:1rem;
 }

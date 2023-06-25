@@ -1,0 +1,64 @@
+header{
+    display: flex;
+    padding: 2rem;
+    justify-content: space-between;
+    background-color: #2b377b;
+    font-family: Anton;
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+
+    .logo{
+        font-family: 'Anton';
+    }
+}
+
+
+.wrapper-form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+
+    .imageUrl {
+        cursor: pointer;
+        .folder-icon{
+            margin-right: 1rem;
+        }
+    }
+
+    .image-file{
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .input-row {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    textarea {
+        height: 1rem;
+    }
+
+    button {
+        background-color: #2b377b;
+        color: white;
+        height: 3rem;
+
+        &:disabled{
+            background-color: #2b377b70;
+        }
+
+        .loader{
+            margin-left: 0.5rem;
+        }
+    }
+}

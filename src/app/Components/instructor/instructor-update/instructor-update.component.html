@@ -1,0 +1,90 @@
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrapper-form">
+  <div class="input-row">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        placeholder="First Name"
+        formControlName="firstName"
+        value="{{ instructor.firstName }}"
+      />
+      <mat-error *ngIf="form.get('firstName')?.invalid"
+        >First name is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        placeholder="Last Name"
+        formControlName="lastName"
+        value="{{ instructor.lastName }}"
+      />
+      <mat-error *ngIf="form.get('lastName')?.invalid"
+        >Last name is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Bio</mat-label>
+    <textarea
+      matInput
+      placeholder="Bio"
+      formControlName="bio"
+      value="{{ instructor.bio }}"
+    ></textarea>
+    <mat-error *ngIf="form.get('bio')?.invalid">Bio is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="{{ instructorService.uploadPlaceHolder }}"
+      class="imageUrl"
+      readonly
+    />
+    <input type="file" class="image-file" (change)="handleFile($event)" />
+    <mat-error *ngIf="form.get('profilePicture')?.invalid"
+      >Profile picture is required</mat-error
+    >
+  </mat-form-field>
+
+  <div class="input-row">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        placeholder="Title"
+        formControlName="title"
+        value="{{ instructor.title }}"
+      />
+      <mat-error *ngIf="form.get('title')?.invalid"
+        >Title is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="description"
+        value="{{ instructor.description }}"
+      ></textarea>
+      <mat-error *ngIf="form.get('description')?.invalid"
+        >Description is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <input type="date" formControlName="updatedAt" [hidden]="true" />
+
+  <button mat-button type="submit" [disabled]="loading">
+    Submit
+    <app-loader class="loader" *ngIf="loading"></app-loader>
+  </button>
+</form>

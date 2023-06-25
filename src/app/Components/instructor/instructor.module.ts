@@ -14,10 +14,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InstructorDeleteComponent } from './instructor-delete/instructor-delete.component';
+import { InstructorAddComponent } from './instructor-add/instructor-add.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InstructorUpdateComponent } from './instructor-update/instructor-update.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [InstructorListComponent, InstructorDetailsComponent, InstructorDeleteComponent],
+  declarations: [InstructorListComponent, InstructorDetailsComponent, InstructorDeleteComponent, InstructorAddComponent, InstructorUpdateComponent],
   imports: [
     CommonModule,
     InstructorRoutingModule,
@@ -29,7 +33,13 @@ import { InstructorDeleteComponent } from './instructor-delete/instructor-delete
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    SharedModule
   ]
 })
 export class InstructorModule { }

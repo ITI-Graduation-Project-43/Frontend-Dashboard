@@ -1,0 +1,34 @@
+<app-form-header [headerInfo]="heaerInfo"></app-form-header>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrapper-form">
+    <div class="input-row">
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstname">
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastname">
+      </mat-form-field>
+    </div>
+  
+    <div class="input-row">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error>Please enter a valid email address.</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error>Password must be at least 8 characters long.</mat-error>
+      </mat-form-field>
+    </div>
+  
+    <button mat-raised-button type="submit" [disabled]="loading">
+      Submit
+      <app-loader *ngIf="loading" class="loader"></app-loader>
+    </button>
+  </form>

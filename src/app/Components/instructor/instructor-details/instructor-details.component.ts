@@ -5,13 +5,13 @@ import { Instructor } from 'src/app/Models/instructor';
 @Component({
   selector: 'app-instructor-details',
   templateUrl: './instructor-details.component.html',
-  styleUrls: ['./instructor-details.component.css']
+  styleUrls: ['./instructor-details.component.scss'],
 })
 export class InstructorDetailsComponent {
-  constructor(private dialogRef: MatDialogRef<InstructorDetailsComponent>) { }
+  constructor(private dialogRef: MatDialogRef<InstructorDetailsComponent>) {}
   @Input() instructor!: Instructor;
+  headerInfo: string = 'Instructor Details';
   close() {
     this.dialogRef.close();
   }
-
 }

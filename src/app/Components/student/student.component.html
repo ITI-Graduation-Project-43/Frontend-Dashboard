@@ -1,30 +1,99 @@
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-    </ng-container>
+<div class="wrapper">
+  <div class="mat-elevation-z8">
+    <div class="form">
+      <mat-form-field floatPlaceholder="never" color="accent">
+        <input matInput #filter placeholder="Filter Students" />
+      </mat-form-field>
+    </div>
+    <div class="mat-table-responsive">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="full-width-table"
+      >
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.firstName }} {{ row.lastName }}
-      </td>
-    </ng-container>
+        <!-- First Name Column -->
+        <ng-container matColumnDef="FirstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="LastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+        </ng-container>
 
-  <mat-paginator
-    #paginator
-    [length]="dataSource.data.length"
-    [pageIndex]="0"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 20]"
-    aria-label="Select page"
-  >
-  </mat-paginator>
+        <!-- #Courses Column -->
+        <ng-container matColumnDef="NoOfCourses">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Courses</th>
+          <td mat-cell *matCellDef="let row">{{ row.noOfCourses }}</td>
+        </ng-container>
+
+        <!-- #Wishlists Column -->
+        <ng-container matColumnDef="NoOfWishlists">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Wishlists</th>
+          <td mat-cell *matCellDef="let row">{{ row.noOfWishlist }}</td>
+        </ng-container>
+
+        <!-- Visibility Column -->
+        <ng-container matColumnDef="Visibility" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            *matCellDef="let row"
+            stickyEnd
+            (click)="openDetailsDialog(row)"
+          >
+            <mat-icon>visibility</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Edit Column -->
+        <ng-container matColumnDef="Edit" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef (click)="addNew()">
+            <mat-icon>add</mat-icon>
+          </th>
+          <td mat-cell *matCellDef="let row" stickyEnd (click)="startEdit(row)">
+            <mat-icon>edit</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="Delete" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            *matCellDef="let row"
+            stickyEnd
+            (click)="deleteItem(row)"
+          >
+            <mat-icon>delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="no-results" *ngIf="dataSource.renderedData.length == 0">
+      No results
+    </div>
+
+    <mat-paginator
+      #paginator
+      [length]="dataSource.filteredData.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page"
+    ></mat-paginator>
+  </div>
 </div>

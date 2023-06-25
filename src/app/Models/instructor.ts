@@ -1,15 +1,31 @@
 export interface Instructor {
-    Id: string;
-    FirstName: string;
-    LastName: string;
-    Bio: string;
-    ProfilePicture?: string;
-    Title: string;
-    Description: string;
-    NoOfCourses: number;
-    NoOfStudents: number;
-    AvgRating: number;
-    NoOfRating: number;
-    CreatedAt: Date;
-    UpdatedAt: Date;
-  }
+  id: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  profilePicture: string;
+  title: string;
+  description: string;
+  noOfCources: number;
+  noOfStudents: number;
+  noOfCourses: number;
+  avgRating: number;
+  noOfRating: number;
+  createdAt: Date;
+  updatedAt: Date;
+  accounts: Account;
+  courses: CourseInstructor[];
+}
+
+export interface Account {
+  GitHub: string;
+  Linkedin: string;
+  Twitter: string;
+}
+
+export interface CourseInstructor {
+  title: string;
+  description: string;
+  NoOfStudents: Number;
+  Price: Number;
+}
