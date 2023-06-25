@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstructorService } from '../../../services/instructor.service';
-import { Instructor } from '../../../models/instructor';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Instructor } from 'src/app/Models/instructor';
 
 @Component({
   selector: 'app-instructor-update',

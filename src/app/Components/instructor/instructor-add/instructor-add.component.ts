@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Instructor } from '../../../models/instructor';
 import { InstructorService } from '../../../services/instructor.service';
+import { Instructor } from 'src/app/Models/instructor';
 
 @Component({
   selector: 'app-instructor-add',

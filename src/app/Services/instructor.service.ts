@@ -1,10 +1,10 @@
 import { Injectable, ViewChild } from '@angular/core';
-import { Instructor } from '../models/instructor';
 import { APIService } from '../shared/Services/api.service';
 import { APIResponseVM } from '../shared/ViewModels/apiresponse-vm';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { InstructorDataSource } from '../Components/instructor/instructor-list/instructor-datasource';
+import { Instructor } from '../Models/instructor';
 
 @Injectable({
   providedIn: 'root',

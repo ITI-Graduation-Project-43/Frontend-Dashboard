@@ -1,13 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   ViewChild,
   OnInit,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -19,8 +13,8 @@ import { InstructorDeleteComponent } from '../instructor-delete/instructor-delet
 import { Observer, connect } from 'rxjs';
 import { InstructorAddComponent } from '../instructor-add/instructor-add.component';
 import { InstructorUpdateComponent } from '../instructor-update/instructor-update.component';
-import { Instructor } from 'src/app/models/instructor';
 import { InstructorService } from 'src/app/services/instructor.service';
+import { Instructor } from '../../../Models/instructor';
 
 @Component({
   selector: 'app-instructor',

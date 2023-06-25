@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Instructor } from '../../../models/instructor';
+import { Instructor } from 'src/app/Models/instructor';
 
 @Component({
   selector: 'app-instructor-details',

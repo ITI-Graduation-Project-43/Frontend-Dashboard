@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Instructor } from '../../../models/instructor';
-import { InstructorService } from '../../../services/instructor.service';
+import { Instructor } from 'src/app/Models/instructor';
+import { InstructorService } from 'src/app/services/instructor.service';
 
 @Component({
   selector: 'app-instructor-delete',
