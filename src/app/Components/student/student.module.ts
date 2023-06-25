@@ -11,11 +11,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { StudentService } from '../../services/student.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentAddComponent } from './components/student-add/student-add.component';
 import { StudentUpdateComponent } from './components/student-update/student-update.component';
 import { StudentDeleteComponent } from './components/student-delete/student-delete.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatDialogModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    SharedModule,
   ],
   providers: [StudentService],
 })

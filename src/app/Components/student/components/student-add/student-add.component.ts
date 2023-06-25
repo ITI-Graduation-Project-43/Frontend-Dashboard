@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { StudentService } from '../../../../services/student.service';
 import { FormControl, Validators } from '@angular/forms';
+import { StudentService } from '../../../../services/student.service';
 import { Student } from '../../../../models/student';
 
 @Component({
@@ -38,6 +38,6 @@ export class StudentAddComponent {
   }
 
   public confirmAdd(): void {
-    this.studentService.addStudent(this.data);
+    this.studentService.AddStudent(this.data);
   }
 }

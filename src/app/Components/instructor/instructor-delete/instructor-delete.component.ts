@@ -1,29 +1,33 @@
 import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Instructor } from 'src/app/Models/instructor';
-import { InstructorService } from 'src/app/Services/instructor.service';
+import { Instructor } from '../../../models/instructor';
+import { InstructorService } from '../../../services/instructor.service';
 
 @Component({
   selector: 'app-instructor-delete',
   templateUrl: './instructor-delete.component.html',
-  styleUrls: ['./instructor-delete.component.scss']
+  styleUrls: ['./instructor-delete.component.scss'],
 })
 export class InstructorDeleteComponent {
-  constructor(private dialogRef: MatDialogRef<InstructorDeleteComponent>,
-    public instructorService: InstructorService) { }
+  constructor(
+    private dialogRef: MatDialogRef<InstructorDeleteComponent>,
+    public instructorService: InstructorService
+  ) {}
   @Input() instructorFirstName!: string;
   @Input() instructorLastName!: string;
   @Input() instructorId!: string;
   loading: boolean = false;
-  headerInfo: string = "Delete Instructor";
+  headerInfo: string = 'Delete Instructor';
 
   delete(id: string) {
     this.loading = true;
-    this.instructorService.RemoveInstructor(id).subscribe((data: Instructor[]) => {
-      this.instructorService.setData(data);
-      this.loading = false;
-      this.dialogRef.close();
-    });
+    this.instructorService
+      .RemoveInstructor(id)
+      .subscribe((data: Instructor[]) => {
+        this.instructorService.setData(data);
+        this.loading = false;
+        this.dialogRef.close();
+      });
   }
   cancel() {
     this.dialogRef.close();

@@ -1,73 +1,55 @@
-<div class="container">
-  <h3 mat-dialog-title>Student id: {{ data.id }}</h3>
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
 
-  <form class="mat-dialog-content" (ngSubmit)="(submit)" #formControl="ngForm">
-    <div class="form">
-      <mat-form-field color="accent">
-        <input
-          matInput
-          #input
-          class="form-control"
-          placeholder="Id"
-          [(ngModel)]="data.id"
-          name="id"
-          disabled
-        />
-      </mat-form-field>
-    </div>
-
-    <!--Textarea for demo purposes-->
-    <div class="form">
-      <mat-form-field color="accent">
-        <textarea
-          matInput
-          #input
-          class="form-control"
-          placeholder="FirstName"
-          [(ngModel)]="data.firstName"
-          name="FirstName"
-          required
-        ></textarea>
-        <mat-error *ngIf="formControl.invalid">{{
-          getErrorMessage()
-        }}</mat-error>
-      </mat-form-field>
-    </div>
-
-    <!--Contains mat-hint for characters count and has maxLengt set-->
-    <div class="form">
-      <mat-form-field color="accent">
-        <input
-          matInput
-          #inputstate
-          class="form-control"
-          placeholder="LastName"
-          [(ngModel)]="data.lastName"
-          name="LastName"
-          required
-        />
-        <mat-error *ngIf="formControl.invalid">{{
-          getErrorMessage()
-        }}</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Bio" [(ngModel)]="data.bio" name="Bio" />
-      </mat-form-field>
-    </div>
-
-    <div mat-dialog-actions>
-      <button
-        mat-button
-        [disabled]="!formControl.valid"
-        [mat-dialog-close]="1"
-        (click)="stopEdit()"
+<form [formGroup]="form" (ngSubmit)="submit()" class="wrapper-form">
+  <div class="input-row">
+    <mat-form-field color="accent">
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        placeholder="First Name"
+        formControlName="firstName"
+        value="{{ data.firstName }}"
+      />
+      <mat-error *ngIf="form.get('firstName')?.invalid"
+        >First name is required</mat-error
       >
-        Save
-      </button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </div>
-  </form>
-</div>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        placeholder="Last Name"
+        formControlName="lastName"
+        value="{{ data.lastName }}"
+      />
+      <mat-error *ngIf="form.get('lastName')?.invalid"
+        >Last name is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <textarea
+      matInput
+      placeholder="Bio"
+      formControlName="bio"
+      value="{{ data.bio }}"
+    ></textarea>
+    <mat-error *ngIf="form.get('bio')?.invalid">Bio is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="{{ studentService.uploadPlaceHolder }}"
+      class="imageUrl"
+      readonly
+    />
+    <input type="file" class="image-file" (change)="handleFile($event)" />
+    <mat-error *ngIf="form.get('profilePicture')?.invalid"
+      >Profile picture is required</mat-error
+    >
+  </mat-form-field>
+  <input type="date" formControlName="updatedAt" [hidden]="true" />
+  <button mat-button type="submit" [mat-dialog-close]="1">Submit</button>
+</form>

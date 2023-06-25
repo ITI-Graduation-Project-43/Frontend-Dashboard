@@ -19,6 +19,6 @@ export class StudentDeleteComponent {
   }
 
   confirmDelete(): void {
-    this.studentService.deleteStudent(this.data.id);
+    this.studentService.deleteItem(this.data.id);
   }
 }
