@@ -1,43 +1,45 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { StudentService } from '../../../../services/student.service';
-import { Student } from '../../../../models/student';
+import { Student } from '../../../../Models/student';
 
 @Component({
   selector: 'app-student-add',
   templateUrl: './student-add.component.html',
-  styleUrls: ['./student-add.component.css'],
+  styleUrls: ['./student-add.component.scss'],
 })
 export class StudentAddComponent {
+  form!: FormGroup;
+  newStudent!: Student;
+  headerInfo: string = 'Add Student';
+  loading: boolean = false;
+
   constructor(
-    public dialogRef: MatDialogRef<StudentAddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Student,
-    public studentService: StudentService
+    private formBuilder: FormBuilder,
+    public studentService: StudentService,
+    public dialogRef: MatDialogRef<StudentAddComponent>
   ) {}
 
-  formControl = new FormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
-  submit() {
-    // empty stuff
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  public confirmAdd(): void {
-    this.studentService.AddStudent(this.data);
+  onSubmit(): void {
+    this.loading = true;
+    this.newStudent = this.form.value as Student;
+    console.log(this.newStudent);
+    this.studentService.AddStudent(this.newStudent).subscribe(() => {
+      this.studentService.getAllStudents().subscribe((data) => {
+        this.studentService.setData(data);
+        this.loading = false;
+        this.dialogRef.close();
+      });
+    });
   }
 }
