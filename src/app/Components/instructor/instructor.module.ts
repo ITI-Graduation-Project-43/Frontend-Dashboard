@@ -17,6 +17,7 @@ import { InstructorDeleteComponent } from './instructor-delete/instructor-delete
 import { InstructorAddComponent } from './instructor-add/instructor-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InstructorUpdateComponent } from './instructor-update/instructor-update.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { InstructorUpdateComponent } from './instructor-update/instructor-update
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SharedModule
   ]
 })
 export class InstructorModule { }

@@ -1,16 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { StudentService } from '../../services/student.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Student } from '../../models/student';
 import { DataSource } from '@angular/cdk/collections';
 import { StudentAddComponent } from './components/student-add/student-add.component';
 import { StudentUpdateComponent } from './components/student-update/student-update.component';
 import { StudentDeleteComponent } from './components/student-delete/student-delete.component';
 import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StudentService } from 'src/app/services/student.service';
+import { Student } from 'src/app/models/student';
 
 @Component({
   selector: 'app-student',
