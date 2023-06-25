@@ -4,8 +4,8 @@ export interface Student {
   lastName: string;
   bio: string;
   profilePicture?: string;
-  numCourses: number;
-  numWishlist: number;
+  noOCourses: number;
+  noOWishlist: number;
   createdAt: Date;
   updatedAt: Date;
 }
