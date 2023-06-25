@@ -1,8 +1,14 @@
-<h1 mat-dialog-title>Delete file</h1>
-<div mat-dialog-content>
-  Would you like to delete instructor: {{instructorFirstName}} {{instructorLastName}}?
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="cancel()">No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial (click)="delete(instructorId)">Ok</button>
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+
+<div class="wrapper">
+  <div mat-dialog-content>
+    Would you like to delete instructor: {{instructorFirstName}} {{instructorLastName}}?
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="cancel()">No</button>
+    <button mat-button cdkFocusInitial (click)="delete(instructorId)" [disabled]="loading">
+      Ok
+      <app-loader *ngIf="loading" class="loader"></app-loader>
+    </button>
+  </div>
 </div>

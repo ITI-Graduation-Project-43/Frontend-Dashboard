@@ -52,5 +52,13 @@ header{
         background-color: #2b377b;
         color: white;
         height: 3rem;
+
+        &:disabled{
+            background-color: #2b377b70;
+        }
+
+        .loader{
+            margin-left: 0.5rem;
+        }
     }
 }

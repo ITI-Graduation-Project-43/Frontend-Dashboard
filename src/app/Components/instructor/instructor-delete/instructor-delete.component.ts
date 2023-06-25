@@ -6,23 +6,26 @@ import { InstructorService } from 'src/app/Services/instructor.service';
 @Component({
   selector: 'app-instructor-delete',
   templateUrl: './instructor-delete.component.html',
-  styleUrls: ['./instructor-delete.component.sass']
+  styleUrls: ['./instructor-delete.component.scss']
 })
 export class InstructorDeleteComponent {
-  constructor(private dialogRef: MatDialogRef<InstructorDeleteComponent>, 
+  constructor(private dialogRef: MatDialogRef<InstructorDeleteComponent>,
     public instructorService: InstructorService) { }
   @Input() instructorFirstName!: string;
   @Input() instructorLastName!: string;
   @Input() instructorId!: string;
+  loading: boolean = false;
+  headerInfo: string = "Delete Instructor";
 
   delete(id: string) {
-    this.instructorService.RemoveInstructor(id).subscribe((data:Instructor[])=>{
+    this.loading = true;
+    this.instructorService.RemoveInstructor(id).subscribe((data: Instructor[]) => {
       this.instructorService.setData(data);
-      console.log("deleted successfully");
+      this.loading = false;
+      this.dialogRef.close();
     });
   }
-
-  cancel(){
+  cancel() {
     this.dialogRef.close();
   }
 }

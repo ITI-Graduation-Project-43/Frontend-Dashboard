@@ -1,4 +1,6 @@
-<mat-card class="example-card">
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+<div class="wrapper">
+  <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image">
         <img src={{instructor.profilePicture}} alt="">
@@ -10,9 +12,34 @@
       <p>
         {{instructor.bio}}
       </p>
+      <hr>
+      <p>
+        <b>ID: </b>
+        {{instructor.id}}
+      </p>
+      <p>
+        <b>Number of courses: </b>
+        {{instructor.noOfCourses}}
+      </p>
+      <p>
+        <b>Number of students: </b>
+        {{instructor.noOfStudents}}
+      </p>
+      <p>
+        <b>Number of ratings: </b>
+        {{instructor.noOfRating}}
+      </p>
+      <p>
+        <b>Added at: </b>
+        {{instructor.createdAt | date}}
+      </p>
+      <p>
+        <b>Updated at: </b>
+        {{instructor.updatedAt | date}}
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="close()">Close</button>
     </mat-card-actions>
   </mat-card>
-  
+</div>

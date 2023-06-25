@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Instructor } from 'src/app/Models/instructor';
 import { InstructorService } from 'src/app/Services/instructor.service';
 
@@ -11,9 +12,12 @@ import { InstructorService } from 'src/app/Services/instructor.service';
 export class InstructorAddComponent implements OnInit {
   form!: FormGroup;
   newInstructor!:Instructor;
+  heaerInfo:string = "Add Instructor"
+  loading:boolean = false;
 
   constructor(private formBuilder: FormBuilder,
-    private instructorService:InstructorService) { }
+    private instructorService:InstructorService,
+    private dialogRef: MatDialogRef<InstructorAddComponent>) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -25,11 +29,14 @@ export class InstructorAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading = true;
     this.newInstructor = this.form.value as Instructor;
     console.log(this.newInstructor);
     this.instructorService.AddInstructor(this.newInstructor).subscribe(()=>{
       this.instructorService.getAllInstructors().subscribe((data=>{
         this.instructorService.setData(data);
+        this.loading = false;
+        this.dialogRef.close();
       }))
     });
   }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Instructor } from 'src/app/Models/instructor';
 import { InstructorService } from 'src/app/Services/instructor.service';
 
@@ -11,9 +12,12 @@ import { InstructorService } from 'src/app/Services/instructor.service';
 export class InstructorUpdateComponent {
   form!: FormGroup;
   @Input() instructor!:Instructor;
+  loading:boolean = false;
   headerInfo:string = "Update Instructor"
 
-  constructor(private fb: FormBuilder, public instructorService:InstructorService) { }
+  constructor(private fb: FormBuilder,
+    public instructorService:InstructorService,
+    private dialogRef: MatDialogRef<InstructorUpdateComponent>) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -28,11 +32,14 @@ export class InstructorUpdateComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     console.log(this.form.value)
     this.instructorService.uploadImage(this.instructor.id);
     this.instructorService.UpdateInstructor(this.form.value, this.instructor.id).subscribe((data:[])=>{
       this.instructorService.getAllInstructors().subscribe((data:Instructor[])=>{
         this.instructorService.setData(data);
+        this.loading = false;
+        this.dialogRef.close();
       })
     })
     console.log("updated success");

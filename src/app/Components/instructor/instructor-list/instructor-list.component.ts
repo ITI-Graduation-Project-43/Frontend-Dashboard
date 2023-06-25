@@ -40,7 +40,6 @@ export class InstructorListComponent implements OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
-    'Id',
     'FirstName',
     'LastName',
     'Title',
@@ -48,8 +47,6 @@ export class InstructorListComponent implements OnInit {
     'NoOfStudents',
     'AvgRating',
     'NoOfRating',
-    'CreatedAt',
-    'UpdatedAt',
     'Visibility',
     'Edit',
     'Delete'
