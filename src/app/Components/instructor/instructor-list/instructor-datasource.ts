@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, Observer } from 'rxjs';
 import { Instructor } from 'src/app/Models/instructor';
-import { InstructorService } from 'src/app/Services/instructor.service';
 
 // TODO: Replace this with your own data model type
 
@@ -21,6 +20,7 @@ export class InstructorDataSource extends DataSource<Instructor> {
   data!:Instructor[] | undefined;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
+  filter:string = '';
 
   constructor() {
     super();
@@ -44,6 +44,19 @@ export class InstructorDataSource extends DataSource<Instructor> {
     }
   }
 
+  private getPagedData(data: Instructor[]): Instructor[] {
+    if (this.paginator) {
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      let filteredData = data.filter((item: Instructor) => {
+        const searchStr = item.firstName + item.lastName + item.bio + item.title;
+        return searchStr.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1;
+      });
+      return filteredData.splice(startIndex, this.paginator.pageSize);
+    } else {
+      return data;
+    }
+  }
+
   /**
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
@@ -54,14 +67,14 @@ export class InstructorDataSource extends DataSource<Instructor> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Instructor[]): Instructor[] {
-    if (this.paginator) {
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      return data.splice(startIndex, this.paginator.pageSize);
-    } else {
-      return data;
-    }
-  }
+  // private getPagedData(data: Instructor[]): Instructor[] {
+  //   if (this.paginator) {
+  //     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+  //     return data.splice(startIndex, this.paginator.pageSize);
+  //   } else {
+  //     return data;
+  //   }
+  // }
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,

@@ -8,7 +8,7 @@ import { InstructorDetailsComponent } from '../instructor-details/instructor-det
 import { Instructor } from 'src/app/Models/instructor';
 import { InstructorDeleteComponent } from '../instructor-delete/instructor-delete.component';
 import { InstructorService } from 'src/app/Services/instructor.service';
-import { Observer } from 'rxjs';
+import { Observer, connect } from 'rxjs';
 import { InstructorAddComponent } from '../instructor-add/instructor-add.component';
 import { InstructorUpdateComponent } from '../instructor-update/instructor-update.component';
 
@@ -21,6 +21,7 @@ export class InstructorListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Instructor>;
+  resetFilter:Instructor[] = [];
 
   observer: Observer<Instructor[]> = {
     next: (insData: Instructor[]) => {
@@ -28,6 +29,7 @@ export class InstructorListComponent implements OnInit {
       this.instructorService.dataSource.sort = this.sort;
       this.instructorService.dataSource.paginator = this.paginator;
       this.table.dataSource = this.instructorService.dataSource;
+      this.resetFilter = insData;
     },
     error: (error) => {
       console.log(error);
@@ -71,6 +73,15 @@ export class InstructorListComponent implements OnInit {
         this.table.dataSource = data;
       }
     }));
+  }
+
+  applyFilter(event: any) {
+    this.instructorService.dataSource.data = this.table.dataSource = this.resetFilter;
+    this.instructorService.dataSource.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.instructorService.dataSource.connect().subscribe((data)=>{
+      this.instructorService.dataSource.data = data;
+      this.table.dataSource = data;  
+    })
   }
 
   openDetailsDialog(instructor: Instructor): void {
