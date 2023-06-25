@@ -2,7 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, of as observableOf, merge, Observer } from 'rxjs';
 import { Instructor } from 'src/app/Models/instructor';
 import { InstructorService } from 'src/app/Services/instructor.service';
 
@@ -18,11 +18,11 @@ import { InstructorService } from 'src/app/Services/instructor.service';
  * (including sorting, pagination, and filtering).
  */
 export class InstructorDataSource extends DataSource<Instructor> {
-  data:Instructor[] = this.service.sampleData;
+  data!:Instructor[] | undefined;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor(private service:InstructorService) {
+  constructor() {
     super();
   }
 
@@ -37,7 +37,7 @@ export class InstructorDataSource extends DataSource<Instructor> {
       // stream for the data-table to consume.
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
-          return this.getPagedData(this.getSortedData([...this.data]));
+          return this.getPagedData(this.getSortedData([...this.data ?? []]));
         }));
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
@@ -75,19 +75,19 @@ export class InstructorDataSource extends DataSource<Instructor> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'FirstName': return compare(a.FirstName, b.FirstName, isAsc);
-        case 'Id': return compare(+a.Id, +b.Id, isAsc);
-        case 'LastName': return compare(a.LastName, b.LastName, isAsc);
-        case 'Bio': return compare(a.Bio, b.Bio, isAsc);
-        case 'ProfilePicture': return compare(a.ProfilePicture || '', b.ProfilePicture || '', isAsc);
-        case 'Title': return compare(a.Title, b.Title, isAsc);
-        case 'Description': return compare(a.Description, b.Description, isAsc);
-        case 'NoOfCourses': return compare(a.NoOfCourses, b.NoOfCourses, isAsc);
-        case 'NoOfStudents': return compare(a.NoOfStudents, b.NoOfStudents, isAsc);
-        case 'AvgRating': return compare(a.AvgRating, b.AvgRating, isAsc);
-        case 'NoOfRating': return compare(a.NoOfRating, b.NoOfRating, isAsc);
-        case 'CreatedAt': return compare(a.CreatedAt, b.CreatedAt, isAsc);
-        case 'UpdatedAt': return compare(a.UpdatedAt, b.UpdatedAt, isAsc);
+        case 'FirstName': return compare(a.firstName, b.firstName, isAsc);
+        case 'Id': return compare(+a.id, +b.id, isAsc);
+        case 'LastName': return compare(a.lastName, b.lastName, isAsc);
+        case 'Bio': return compare(a.bio, b.bio, isAsc);
+        case 'ProfilePicture': return compare(a.profilePicture || '', b.profilePicture || '', isAsc);
+        case 'Title': return compare(a.title, b.title, isAsc);
+        case 'Description': return compare(a.description, b.description, isAsc);
+        case 'NoOfCourses': return compare(a.noOfCourses, b.noOfCourses, isAsc);
+        case 'NoOfStudents': return compare(a.noOfStudents, b.noOfStudents, isAsc);
+        case 'AvgRating': return compare(a.avgRating, b.avgRating, isAsc);
+        case 'NoOfRating': return compare(a.noOfRating, b.noOfRating, isAsc);
+        case 'CreatedAt': return compare(a.createdAt, b.createdAt, isAsc);
+        case 'UpdatedAt': return compare(a.updatedAt, b.updatedAt, isAsc);
         default: return 0;
       }
     });

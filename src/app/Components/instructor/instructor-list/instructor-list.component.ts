@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -8,18 +8,35 @@ import { InstructorDetailsComponent } from '../instructor-details/instructor-det
 import { Instructor } from 'src/app/Models/instructor';
 import { InstructorDeleteComponent } from '../instructor-delete/instructor-delete.component';
 import { InstructorService } from 'src/app/Services/instructor.service';
+import { Observer } from 'rxjs';
+import { InstructorAddComponent } from '../instructor-add/instructor-add.component';
+import { InstructorUpdateComponent } from '../instructor-update/instructor-update.component';
 
 @Component({
   selector: 'app-instructor',
   templateUrl: './instructor-list.component.html',
   styleUrls: ['./instructor-list.component.css']
 })
-export class InstructorListComponent implements AfterViewInit {
+export class InstructorListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Instructor>;
 
-  dataSource: InstructorDataSource;
+  observer: Observer<Instructor[]> = {
+    next: (insData: Instructor[]) => {
+      this.instructorService.dataSource.data = insData;
+      this.instructorService.dataSource.sort = this.sort;
+      this.instructorService.dataSource.paginator = this.paginator;
+      this.table.dataSource = this.instructorService.dataSource;
+    },
+    error: (error) => {
+      console.log(error);
+    },
+    complete: () => {
+      console.log("done")
+    }
+  }
+
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
@@ -38,14 +55,25 @@ export class InstructorListComponent implements AfterViewInit {
     'Delete'
   ];
 
-  constructor(private dialog: MatDialog, public service:InstructorService) {
-    this.dataSource = new InstructorDataSource(service);
+  constructor(private dialog: MatDialog,
+    public instructorService: InstructorService) {
+    instructorService.dataSource = new InstructorDataSource();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+
+  ngOnInit(): void {
+    this.instructorService.getAllInstructors().subscribe(this.observer);
+    this.renderRows();
+  }
+
+  renderRows() {
+    this.instructorService.getData().subscribe((data => {
+      console.log(data)
+      if (data) {
+        this.instructorService.dataSource.data = data;
+        this.table.dataSource = data;
+      }
+    }));
   }
 
   openDetailsDialog(instructor: Instructor): void {
@@ -56,12 +84,19 @@ export class InstructorListComponent implements AfterViewInit {
     });
   }
 
-  openDeleteDialog(instructorName: string, instructorId: string): void {
+  openDeleteDialog(instructorFirstName: string, instructorLastName: string, instructorId: string): void {
     const dialogRef = this.dialog.open(InstructorDeleteComponent);
-    dialogRef.componentInstance.instructorName = instructorName;
+    dialogRef.componentInstance.instructorFirstName = instructorFirstName;
+    dialogRef.componentInstance.instructorLastName = instructorLastName;
     dialogRef.componentInstance.instructorId = instructorId;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  }
+
+  openAddDialog(): void {
+    this.dialog.open(InstructorAddComponent);
+  }
+
+  openUpdateDialog(instructor:Instructor){
+    const dialogRef = this.dialog.open(InstructorUpdateComponent);
+    dialogRef.componentInstance.instructor = instructor;
   }
 }
