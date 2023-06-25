@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, Observer } from 'rxjs';
-import { Instructor } from 'src/app/Models/instructor';
+import { Instructor } from 'src/app/models/instructor';
 
 // TODO: Replace this with your own data model type
 
