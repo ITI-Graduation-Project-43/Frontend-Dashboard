@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Course } from 'src/app/Models/Course';
-import { CourseService } from 'src/app/Services/Course.service';
+import { CourseService } from '../../services/Course.service';
 import { APIResponseVM } from 'src/app/shared/ViewModels/apiresponse-vm';
 @Component({
   selector: 'app-courses',
