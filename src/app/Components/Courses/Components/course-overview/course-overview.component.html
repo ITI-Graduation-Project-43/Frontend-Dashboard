@@ -9,9 +9,6 @@
       <mat-card-subtitle>{{ course.instructorBio }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        {{ course.instructorBio }}
-      </p>
       <hr />
       <p>
         <b>course Title: </b>
@@ -48,12 +45,20 @@
         {{ course.noOfQuizes }}
       </p>
       <p>
-        <b>Added at: </b>
-        {{ course.createdAt | date }}
+        <b>learning Items: </b>
+        <li *ngFor="let item of course.learningItems">
+          {{ item.description }}
+        </li>
       </p>
       <p>
-        <b>Updated at: </b>
-        {{ course.updatedAt | date }}
+        <b>Target Students: </b>
+        <li *ngFor="let item of course.enrollmentItems">
+          {{ item.description }}
+        </li>
+      </p>
+      <p>
+        <b>Added at: </b>
+        {{ course.createdAt | date }}
       </p>
     </mat-card-content>
     <mat-card-actions>
