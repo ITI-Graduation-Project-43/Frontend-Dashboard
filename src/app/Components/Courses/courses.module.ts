@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CourseOverviewComponent } from './Components/course-overview/course-overview.component';
 import { SharedModule } from '../../shared/shared.module';
+
 @NgModule({
   declarations: [CoursesComponent, TruncatePipe, CourseOverviewComponent],
   providers: [CourseService],

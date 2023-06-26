@@ -39,7 +39,6 @@ export class InstructorListComponent implements OnInit {
       console.log(error);
     },
     complete: () => {
-      console.log('done');
     },
   };
 
@@ -71,7 +70,6 @@ export class InstructorListComponent implements OnInit {
 
   renderRows() {
     this.instructorService.getData().subscribe((data) => {
-      console.log(data);
       if (data) {
         this.instructorService.dataSource.data = data;
         this.table.dataSource = data;
@@ -96,9 +94,6 @@ export class InstructorListComponent implements OnInit {
   openDetailsDialog(instructor: Instructor): void {
     const dialogRef = this.dialog.open(InstructorDetailsComponent);
     dialogRef.componentInstance.instructor = instructor;
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
   }
 
   openDeleteDialog(

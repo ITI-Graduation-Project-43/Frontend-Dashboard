@@ -54,7 +54,7 @@ export class InstructorDataSource extends DataSource<Instructor> {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       let filteredData = data.filter((item: Instructor) => {
         const searchStr =
-          item.firstName + item.lastName + item.bio + item.title;
+          item.firstName + item.lastName + item.title;
         return (
           searchStr.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1
         );

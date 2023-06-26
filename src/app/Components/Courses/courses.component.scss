@@ -20,6 +20,7 @@ button {
   font-weight: bold;
   border: none;
   margin: 5px;
+  cursor: pointer;
   &:disabled {
     background-color: #2b377b70;
   }
