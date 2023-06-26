@@ -9,9 +9,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
-
+import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SnackbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
