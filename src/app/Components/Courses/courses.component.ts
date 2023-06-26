@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Course } from 'src/app/Models/Course';
 import { CourseService } from 'src/app/Services/Course.service';
 import { APIResponseVM } from 'src/app/shared/ViewModels/apiresponse-vm';
+import { CourseOverviewComponent } from './Components/course-overview/course-overview.component';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.sass'],
+  styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent {
   courses: Course[] = [];
-  constructor(private apiService: CourseService) {
+  constructor(private apiService: CourseService, public dialog: MatDialog) {
     apiService
       .getAllItem('Course/nonApprovedCourses')
       .subscribe((data: APIResponseVM) => {
@@ -27,5 +29,19 @@ export class CoursesComponent {
       };
       this.apiService.makeCourseApprove(id).subscribe(observer);
     }
+  }
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    obj: any
+  ): void {
+    this.dialog.open(CourseOverviewComponent, {
+      width: '500px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        key: obj,
+      },
+    });
   }
 }
