@@ -1,0 +1,32 @@
+section {
+  padding: 20px;
+}
+.card {
+  max-width: 400px;
+}
+
+.parent {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+button {
+  background-color: #2b377b;
+  color: white;
+  padding: 10px 20px;
+  font-size: large;
+  font-weight: bold;
+  border: none;
+  margin: 5px;
+  &:disabled {
+    background-color: #2b377b70;
+  }
+}
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 30px;
+}
