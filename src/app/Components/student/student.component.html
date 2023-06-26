@@ -6,113 +6,84 @@
       </mat-form-field>
     </div>
     <div class="mat-table-responsive">
-      <mat-table
-        #table
+      <table
+        mat-table
         [dataSource]="dataSource"
         matSort
-        class="mat-cell full-width-table"
+        class="full-width-table"
       >
-        ng update @angular/cli @angular/core
-        <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
         <!-- ID Column -->
         <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Id</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
         </ng-container>
 
+        <!-- First Name Column -->
         <ng-container matColumnDef="FirstName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >First Name</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row"> {{ row.firstName }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
         </ng-container>
 
+        <!-- Last Name Column -->
         <ng-container matColumnDef="LastName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Last Name</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row"> {{ row.lastName }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="Bio">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Bio</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row"> {{ row.bio }}</mat-cell>
-        </ng-container>
-
-        <!-- Name Column -->
+        <!-- #Courses Column -->
         <ng-container matColumnDef="NoOfCourses">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >#Courses</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row">{{ row.numCourses }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Courses</th>
+          <td mat-cell *matCellDef="let row">{{ row.noOfCourses }}</td>
         </ng-container>
 
-        <!-- Name Column -->
+        <!-- #Wishlists Column -->
         <ng-container matColumnDef="NoOfWishlists">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >#Wishlists</mat-header-cell
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#Wishlists</th>
+          <td mat-cell *matCellDef="let row">{{ row.noOfWishlist }}</td>
+        </ng-container>
+
+        <!-- Visibility Column -->
+        <ng-container matColumnDef="Visibility" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            *matCellDef="let row"
+            stickyEnd
+            (click)="openDetailsDialog(row)"
           >
-          <mat-cell *matCellDef="let row">{{ row.numWishlist }}</mat-cell>
+            <mat-icon>visibility</mat-icon>
+          </td>
         </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="CreatedAt">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >CreatedAt</mat-header-cell
+        <!-- Edit Column -->
+        <ng-container matColumnDef="Edit" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef (click)="addNew()">
+            <mat-icon>add</mat-icon>
+          </th>
+          <td mat-cell *matCellDef="let row" stickyEnd (click)="startEdit(row)">
+            <mat-icon>edit</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="Delete" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            *matCellDef="let row"
+            stickyEnd
+            (click)="deleteItem(row)"
           >
-          <mat-cell *matCellDef="let row">{{ row.createdAt | date }}</mat-cell>
+            <mat-icon>delete</mat-icon>
+          </td>
         </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="UpdatedAt">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >UpdatedAt</mat-header-cell
-          >
-          <mat-cell *matCellDef="let row">{{ row.updatedAt | date }}</mat-cell>
-        </ng-container>
-
-        <!-- actions -->
-        <ng-container matColumnDef="actions" stickyEnd>
-          <mat-header-cell *matHeaderCellDef>
-            <button mat-icon-button color="primary" (click)="addNew()">
-              <mat-icon aria-label="Example icon-button with a heart icon"
-                >add</mat-icon
-              >
-            </button>
-          </mat-header-cell>
-
-          <mat-cell *matCellDef="let row; let i = index" stickyEnd>
-            <button mat-icon-button color="accent" (click)="startEdit(i, row)">
-              <mat-icon aria-label="Edit">edit</mat-icon>
-            </button>
-
-            <button
-              mat-icon-button
-              color="accent"
-              (click)="
-                deleteItem(i, row.id, row.firstName, row.lastName, row.bio)
-              "
-            >
-              <mat-icon aria-label="Delete">delete</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </mat-table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
 
-    <div
-      class="no-results"
-      [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'"
-    >
+    <div class="no-results" *ngIf="dataSource.renderedData.length == 0">
       No results
     </div>
 
@@ -123,7 +94,6 @@
       [pageSize]="10"
       [pageSizeOptions]="[5, 10, 20]"
       aria-label="Select page"
-    >
-    </mat-paginator>
+    ></mat-paginator>
   </div>
 </div>

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Student } from '../models/student';
+import { Student } from '../Models/student';
+import { APIService } from '../shared/Services/api.service';
+import { APIResponseVM } from '../shared/ViewModels/apiresponse-vm';
 
 @Injectable({
   providedIn: 'root',
@@ -16,23 +18,28 @@ export class StudentService {
   selectedFile!: File;
   uploadPlaceHolder: string = 'Upload Picture --choose file--';
 
-  constructor(private httpClient: HttpClient) {}
+  setData(data: any) {
+    this.dataChange.next(data);
+  }
+
+  getData() {
+    return this.dataChange.asObservable();
+  }
+
+  constructor(private httpClient: HttpClient, private apiService: APIService) {}
 
   getDialogData() {
     return this.dialogData;
   }
-
   /** CRUD METHODS */
-  getAllStudents(): void {
-    this.httpClient.get<any>(this.API_URL).subscribe(
-      (res) => {
-        this.data = res.items;
-        this.dataChange.next(res.items);
-        console.log(res);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      }
+
+  getAllStudents(): Observable<Student[]> {
+    return this.apiService.getAllItem('Student').pipe(
+      map((data: APIResponseVM) => data.items as Student[]),
+      tap((students: Student[]) => {
+        this.data = students;
+        this.dataChange.next(students);
+      })
     );
   }
 
@@ -47,26 +54,16 @@ export class StudentService {
     );
   }
 
-  UpdateStudent(student: Student, id: string): void {
-    this.httpClient.patch<any>(this.API_URL + '/' + id, student).subscribe(
-      (data: any) => {
-        console.log(data.message);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      }
-    );
+  UpdateStudent(student: Student, id: string): Observable<[]> {
+    return this.apiService
+      .updateItem(`Student/${id}`, student)
+      .pipe(map((data: APIResponseVM) => data.items));
   }
 
-  AddStudent(student: Student): void {
-    this.httpClient.post<any>(this.API_URL, student).subscribe(
-      (data: any) => {
-        console.log(data.message);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      }
-    );
+  AddStudent(student: Student): Observable<Student[]> {
+    return this.apiService
+      .addItem(`User/Register/Student`, student)
+      .pipe(map((data: APIResponseVM) => data.items as Student[]));
   }
 
   uploadImage(id: string) {
@@ -92,51 +89,3 @@ export class StudentService {
     }
   }
 }
-
-/* REAL LIFE CRUD Methods I've used in my projects. ToasterService uses Material Toasts for displaying messages:
-
-    // ADD, POST METHOD
-    addItem(kanbanItem: KanbanItem): void {
-    this.httpClient.post(this.API_URL, kanbanItem).subscribe(data => {
-      this.dialogData = kanbanItem;
-      this.toasterService.showToaster('Successfully added', 3000);
-      },
-      (err: HttpErrorResponse) => {
-      this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-    });
-   }
-
-    // UPDATE, PUT METHOD
-     updateItem(kanbanItem: KanbanItem): void {
-    this.httpClient.put(this.API_URL + kanbanItem.id, kanbanItem).subscribe(data => {
-        this.dialogData = kanbanItem;
-        this.toasterService.showToaster('Successfully edited', 3000);
-      },
-      (err: HttpErrorResponse) => {
-        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
-  }
-
-  // DELETE METHOD
-  deleteItem(id: string): void {
-    this.httpClient.delete(this.API_URL + id).subscribe(
-      (data) => {
-        this.toasterService.open('Successfully deleted', 'Close', {
-          duration: 2000,
-          panelClass: 'success-snackbar', // Optional: Apply custom CSS class for styling
-        });
-      },
-      (err: HttpErrorResponse) => {
-        this.toasterService.open(
-          'Error occurred. Details: ' + err.name + ' ' + err.message,
-          'Close',
-          {
-            duration: 8000,
-            panelClass: 'success-snackbar', // Optional: Apply custom CSS class for styling
-          }
-        );
-      }
-    );
-  }
-*/

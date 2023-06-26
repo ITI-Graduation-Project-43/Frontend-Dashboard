@@ -5,20 +5,20 @@ import { StudentService } from '../../../../services/student.service';
 @Component({
   selector: 'app-student-delete',
   templateUrl: './student-delete.component.html',
-  styleUrls: ['./student-delete.component.css'],
+  styleUrls: ['./student-delete.component.scss'],
 })
 export class StudentDeleteComponent {
+  headerInfo: string = 'Delete Student';
   constructor(
     public dialogRef: MatDialogRef<StudentDeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public studentService: StudentService
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  confirmDelete(): void {
+  delete(): void {
     this.studentService.deleteItem(this.data.id);
+  }
+  cancel() {
+    this.dialogRef.close();
   }
 }

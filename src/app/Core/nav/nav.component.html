@@ -1,16 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar class="logo">
-      <div class="logo-name">
-        MindMission
-      </div>
-    </mat-toolbar>
+    <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/bi" routerLinkActive="active-link">BI Report</a>
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
-      <a mat-list-item routerLink="/instructor" routerLinkActive="active-link">Instructors</a>
-      <a mat-list-item routerLink="/student" routerLinkActive="active-link">Students</a>
+      <a mat-list-item routerLink="/dashboard">Dashboard</a>
+      <a mat-list-item routerLink="/instructor">Instructors</a>
+      <a mat-list-item routerLink="/student">Students</a>
+      <a mat-list-item routerLink="/courses">Courses</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

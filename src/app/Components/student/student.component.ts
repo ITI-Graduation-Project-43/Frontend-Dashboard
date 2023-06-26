@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -10,7 +16,8 @@ import { StudentDeleteComponent } from './components/student-delete/student-dele
 import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StudentService } from 'src/app/services/student.service';
-import { Student } from 'src/app/models/student';
+import { Student } from 'src/app/Models/student';
+import { StudentDetailsComponent } from './components/student-details/student-details.component';
 
 @Component({
   selector: 'app-student',
@@ -22,12 +29,11 @@ export class StudentComponent implements OnInit {
     'id',
     'FirstName',
     'LastName',
-    'Bio',
     'NoOfCourses',
     'NoOfWishlists',
-    'CreatedAt',
-    'UpdatedAt',
-    'actions',
+    'Visibility',
+    'Edit',
+    'Delete',
   ];
   exampleDatabase!: StudentService;
   dataSource!: StudentDataSource;
@@ -37,7 +43,8 @@ export class StudentComponent implements OnInit {
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public studentService: StudentService
+    public studentService: StudentService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -46,10 +53,10 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
-  }
-
-  refresh() {
-    this.loadData();
+    this.studentService.getAllStudents().subscribe((data) => {
+      this.exampleDatabase.setData(data);
+      this.refreshTable();
+    });
   }
 
   addNew() {
@@ -67,12 +74,11 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  startEdit(i: number, student: Student) {
+  startEdit(student: Student) {
     this.id = student.id;
-    this.index = i;
-    const dialogRef = this.dialog.open(StudentUpdateComponent);
-    dialogRef.componentInstance.data = student;
-
+    const dialogRef = this.dialog.open(StudentUpdateComponent, {
+      data: student,
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside DataService by id
@@ -88,17 +94,18 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  deleteItem(
-    i: number,
-    id: string,
-    firstName: string,
-    lastName: string,
-    bio: string
-  ) {
-    this.id = id;
-    this.index = i;
+  openDetailsDialog(student: Student): void {
+    const dialogRef = this.dialog.open(StudentDetailsComponent, {
+      data: student,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  deleteItem(row: Student) {
     const dialogRef = this.dialog.open(StudentDeleteComponent, {
-      data: { id: id, firstName: firstName, lastName: lastName, bio: bio },
+      data: row,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -114,7 +121,9 @@ export class StudentComponent implements OnInit {
   }
 
   private refreshTable() {
+    this.loadData();
     this.paginator._changePageSize(this.paginator.pageSize);
+    this.changeDetectorRef.detectChanges();
   }
 
   public loadData() {
@@ -124,6 +133,7 @@ export class StudentComponent implements OnInit {
       this.paginator,
       this.sort
     );
+
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)
       // .distinctUntilChanged()
