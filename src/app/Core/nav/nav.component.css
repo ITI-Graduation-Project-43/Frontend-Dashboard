@@ -39,3 +39,7 @@
 .active-link {
   background-color: #e0e0e0;
 }
+
+svg{
+  margin-right: 0.5rem;
+}
