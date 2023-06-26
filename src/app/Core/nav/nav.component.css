@@ -39,7 +39,7 @@
 .active-link {
   background-color: #e0e0e0;
 }
-svg{
+svg {
   margin-right: 0.5rem;
 }
 .toolbar-icons {
@@ -54,4 +54,10 @@ svg{
 }
 .signout:hover {
   color: rgb(72, 73, 73);
+}
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  margin-top: 0.5rem;
 }

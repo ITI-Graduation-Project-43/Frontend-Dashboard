@@ -16,7 +16,10 @@
 
 .mat-mdc-card {
   padding: 2rem;
-  overflow-y:scroll;
+  height: 80vh;
+}
+.mat-mdc-card-content {
+  overflow-y: scroll;
 }
 
 button {

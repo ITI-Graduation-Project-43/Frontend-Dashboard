@@ -65,6 +65,6 @@ export class InstructorUpdateComponent {
   handleFile(event: any) {
     this.instructorService.selectedFile = event.target.files[0];
     this.instructorService.uploadPlaceHolder =
-      this.instructorService.selectedFile.name;
+      this.instructorService.selectedFile?.name;
   }
 }

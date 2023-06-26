@@ -9,6 +9,7 @@ import { StudentService } from '../../../../services/student.service';
 })
 export class StudentDeleteComponent {
   headerInfo: string = 'Delete Student';
+  loading: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<StudentDeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -16,7 +17,11 @@ export class StudentDeleteComponent {
   ) {}
 
   delete(): void {
-    this.studentService.deleteItem(this.data.id);
+    this.loading = true;
+    this.studentService.deleteItem(this.data.id).subscribe((data) => {
+      this.loading = false;
+      this.dialogRef.close();
+    });
   }
   cancel() {
     this.dialogRef.close();

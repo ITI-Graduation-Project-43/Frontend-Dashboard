@@ -73,7 +73,7 @@ export class NavComponent implements OnInit {
     if (this.login) {
       let obvserver = {
         next: (data: APIResponseVM) => {
-          if (data.success) {
+          if (data?.success) {
             this.LocalStorageService.updateUserInfo(data.items);
           }
         },
