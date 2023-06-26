@@ -1,14 +1,15 @@
 section {
+  margin-top: 50px;
   .login-container {
     width: 100%;
     padding: 20px;
-    border: 1px solid black;
-    box-shadow: 5px 5px black, 5px 5px 0px 1px black;
+    border: 1px solid #031859;
+    box-shadow: 5px 5px #031859, 5px 5px 0px 1px #031859;
     h2 {
       font-family: "Anton", sans-serif;
       font-size: 48px;
       line-height: 124.04%;
-      color: black;
+      color: #031859;
       font-weight: 400;
       margin-bottom: 50px;
     }
@@ -18,14 +19,14 @@ section {
         input {
           width: 100%;
           padding: 15px;
-          border: 2px solid black;
+          border: 2px solid #031859;
           font-size: 18px;
           &::placeholder {
             color: black;
           }
           &:read-only {
             color: rgba(0, 0, 0, 0.248);
-            border-color: rgba(0, 0, 0, 0.248);
+            border-color: #031859;
           }
           &:focus {
             outline: none;
@@ -47,16 +48,15 @@ section {
       }
       .login {
         font-size: 1.5rem;
-        color: black;
+        color: #031859;
         padding: 10px 22px;
-        border: 1px solid black;
+        border: 1px solid #031859;
         background: white;
-        box-shadow: 5px 5px black, 5px 5px 0px 1px black;
+        box-shadow: 5px 5px #031859, 5px 5px 0px 1px #031859;
         cursor: pointer;
         font-weight: 700;
         font-size: 24px;
         line-height: 29px;
-        color: black;
         padding: 7px 22px;
         &.send {
           display: block;
@@ -80,7 +80,7 @@ section {
               content: "";
               width: 20px;
               height: 20px;
-              border: 3px solid black;
+              border: 3px solid #031859;
               border-left: 3px solid transparent;
               animation-name: load;
               animation-timing-function: linear;
@@ -94,54 +94,6 @@ section {
             }
           }
         }
-      }
-    }
-    .or {
-      margin: 50px 0;
-      text-align: center;
-      position: relative;
-      width: 100%;
-      height: 20px;
-      &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background-color: black;
-        top: 50%;
-        left: 0;
-        z-index: 0;
-        transform: translateY(-50%);
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-      }
-      &::after {
-        content: "Or";
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        z-index: 2;
-        background-color: white;
-        text-align: center;
-        font-family: "Cabin", sans-serif;
-        font-size: 24px;
-        color: black;
-        line-height: 50px;
-        font-weight: bold;
-        top: 50%;
-        left: 50%;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        transform: translate(-50%, -50%);
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        -o-transform: translate(-50%, -50%);
       }
     }
   }
