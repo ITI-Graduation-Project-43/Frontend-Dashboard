@@ -1,0 +1,68 @@
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+<div class="wrapper">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <img src="{{ course.instructorProfilePicture }}" alt="" />
+      </div>
+      <mat-card-title>{{ course.instructorName }}</mat-card-title>
+      <mat-card-subtitle>{{ course.instructorBio }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <hr />
+      <p>
+        <b>course Title: </b>
+        {{ course.title }}
+      </p>
+      <p>
+        <b>language: </b>
+        {{ course.language }}
+      </p>
+      <p>
+        <b>price: </b>
+        {{ course.price }}
+      </p>
+      <p>
+        <b>level: </b>
+        {{ course.level }}
+      </p>
+      <p>
+        <b>Number of videos: </b>
+        {{ course.noOfVideos }}
+      </p>
+      <p></p>
+      <p>
+        <b>Number of Articles: </b>
+        {{ course.noOfArticles }}
+      </p>
+      <p></p>
+      <p>
+        <b>Number of attachment: </b>
+        {{ course.noOfAttachments }}
+      </p>
+      <p>
+        <b>Number of Quizes: </b>
+        {{ course.noOfQuizes }}
+      </p>
+      <p>
+        <b>learning Items: </b>
+        <li *ngFor="let item of course.learningItems">
+          {{ item.description }}
+        </li>
+      </p>
+      <p>
+        <b>Target Students: </b>
+        <li *ngFor="let item of course.enrollmentItems">
+          {{ item.description }}
+        </li>
+      </p>
+      <p>
+        <b>Added at: </b>
+        {{ course.createdAt | date }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
