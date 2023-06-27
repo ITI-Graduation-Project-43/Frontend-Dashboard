@@ -11,7 +11,7 @@ import { InstructorService } from 'src/app/services/instructor.service';
 export class InstructorDeleteComponent {
   constructor(
     private dialogRef: MatDialogRef<InstructorDeleteComponent>,
-    public instructorService: InstructorService
+    private instructorService: InstructorService
   ) {}
   @Input() instructorFirstName!: string;
   @Input() instructorLastName!: string;

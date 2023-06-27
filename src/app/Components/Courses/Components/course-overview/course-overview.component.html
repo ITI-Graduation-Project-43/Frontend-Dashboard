@@ -45,14 +45,20 @@
         {{ course.noOfQuizes }}
       </p>
       <p>
-        <b>learning Items: </b>
+        <b>Learning Items: </b>
         <li *ngFor="let item of course.learningItems">
           {{ item.description }}
         </li>
       </p>
       <p>
-        <b>Target Students: </b>
+        <b>Enrollment Items: </b>
         <li *ngFor="let item of course.enrollmentItems">
+          {{ item.description }}
+        </li>
+      </p>
+      <p>
+        <b>Course Requirements: </b>
+        <li *ngFor="let item of course.courseRequirements">
           {{ item.description }}
         </li>
       </p>

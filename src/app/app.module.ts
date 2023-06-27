@@ -9,11 +9,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { SnackbarComponent } from './shared/snackbar/snackbar.component';import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, LoginFormComponent],
+  declarations: [AppComponent, LoginFormComponent, SnackbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
