@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'bi', pathMatch: 'full' },
   {
     path: 'dashboard',
     loadChildren: () =>
@@ -22,6 +22,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('../../Components/instructor/instructor.module').then(
         (m) => m.InstructorModule
+      ),
+  },
+  {
+    path: 'bi',
+    loadChildren: () =>
+      import('../../Components/power-bi-report/power-bi-report.module').then(
+        (m) => m.PowerBiReportModule
       ),
   },
   {

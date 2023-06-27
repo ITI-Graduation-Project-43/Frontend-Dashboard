@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Course } from 'src/app/Models/Course';
-import { CourseService } from 'src/app/Services/Course.service';
+import { CourseService } from '../../services/Course.service';
 import { APIResponseVM } from 'src/app/shared/ViewModels/apiresponse-vm';
 import { CourseOverviewComponent } from './Components/course-overview/course-overview.component';
 import { NotificationService } from 'src/app/shared/Services/notification.service';
