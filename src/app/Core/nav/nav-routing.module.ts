@@ -38,6 +38,13 @@ const routes: Routes = [
         (m) => m.CoursesModule
       ),
   },
+  {
+    path: 'messages',
+    loadChildren: () =>
+      import('../../Components/Messages/messages.module').then(
+        (m) => m.MessagesModule
+      ),
+  },
 ];
 
 @NgModule({
