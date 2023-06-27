@@ -1,3 +1,6 @@
+@use "../../../assets/style/abstracts/variables.scss" as *;
+@use "../../../assets/style/abstracts/mixins.scss" as *;
+
 section {
   padding: 20px;
 }
@@ -31,3 +34,4 @@ h1 {
   text-transform: capitalize;
   margin-bottom: 30px;
 }
+
