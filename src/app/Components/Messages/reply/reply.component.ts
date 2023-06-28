@@ -37,6 +37,8 @@ export class ReplyComponent implements OnInit {
       return;
     } else {
       const mailData = this.form.value;
+      console.log(mailData);
+
       this.api
         .addItem(`Message/reply/${this.resieved.id}`, mailData)
         .subscribe(() => {

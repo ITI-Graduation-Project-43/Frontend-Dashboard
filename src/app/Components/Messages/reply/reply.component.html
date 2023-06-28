@@ -2,10 +2,10 @@
   <h1>Send Mail</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrapper-form">
     <div class="input-row">
-      <mat-form-field>
+      
         <mat-label>Message Body</mat-label>
         <input matInput formControlName="emailBody" />
-      </mat-form-field>
+      
 
       <button mat-raised-button type="submit" [disabled]="loading">
         Submit
