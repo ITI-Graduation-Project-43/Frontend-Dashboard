@@ -29,6 +29,7 @@ export class MessageListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData();
   }
+
   //for filtering the table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
