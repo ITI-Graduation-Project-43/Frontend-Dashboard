@@ -25,9 +25,11 @@ export class MessageListComponent implements OnInit {
     'isReplyed',
     'Operations',
   ];
+  status: string = '';
   constructor(private apiService: APIService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.fetchData();
+    
   }
 
   //for filtering the table
