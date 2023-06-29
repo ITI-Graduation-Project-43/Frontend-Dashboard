@@ -13,7 +13,6 @@ import { APIService } from 'src/app/shared/Services/api.service';
 })
 export class ReplyComponent implements OnInit {
   mailData!: FormGroup;
-  body: string = 'Mahmoud';
   resieved: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
