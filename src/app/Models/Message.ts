@@ -3,5 +3,5 @@ export interface Message {
   name: string;
   email: string;
   message: string;
-  isReplyed: boolean;
+  isReplied: boolean;
 }
