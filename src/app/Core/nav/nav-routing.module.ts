@@ -43,6 +43,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('../../Components/category/category.module').then(
         (m) => m.CategoryModule
+        ),
+  },
+  {
+    path: 'coupon',
+    loadChildren: () =>
+      import('../../Components/coupon/coupon.module').then(
+        (m) => m.CouponModule
       ),
   },
 ];

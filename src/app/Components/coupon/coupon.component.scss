@@ -1,0 +1,26 @@
+.full-width-table {
+  width: 100%;
+  overflow: scroll;
+}
+
+.wrapper {
+  padding: 1rem;
+}
+
+.mat-table-responsive {
+  overflow-x: auto;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid black;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+.mat-mdc-form-field {
+  width: 100%;
+}
+.no-results {
+  text-align: center;
+}
