@@ -1,16 +1,49 @@
 <section class="p-4">
   <h1>Send Mail</h1>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrapper-form">
+  <form [formGroup]="mailData" (ngSubmit)="onSubmit()" class="wrapper-form">
     <div class="input-row">
-      
-        <mat-label>Message Body</mat-label>
-        <input matInput formControlName="emailBody" />
-      
-
-      <button mat-raised-button type="submit" [disabled]="loading">
-        Submit
-        <app-loader *ngIf="loading" class="loader"></app-loader>
-      </button>
+      <div>
+        <mat-label>TO</mat-label><br />
+        <input
+          class="w-100"
+          type="text"
+          [value]="this.resieved.name"
+          disabled
+        />
+      </div>
+      <div>
+        <mat-label>Mail To</mat-label><br />
+        <input
+          class="w-100"
+          type="text"
+          [value]="this.resieved.email"
+          disabled
+        />
+      </div>
+      <div>
+        <mat-label>Message</mat-label><br />
+        <input
+          class="w-100"
+          type="text"
+          [value]="this.resieved.message"
+          disabled
+        />
+      </div>
+      <div>
+        <mat-label>Response</mat-label><br />
+        <textarea
+          class="w-100"
+          matInput
+          rows="5"
+          formControlName="emailBody"
+        ></textarea
+        ><br />
+      </div>
+      <div class="controls">
+        <button class="close" mat-button mat-dialog-close>Cancel</button>
+        <button class="submit" mat-raised-button type="submit">Submit</button>
+      </div>
     </div>
   </form>
+  <p>{{ this.mailData.value | json }}</p>
 </section>

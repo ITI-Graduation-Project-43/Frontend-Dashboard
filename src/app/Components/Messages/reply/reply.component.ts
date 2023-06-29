@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -12,36 +12,49 @@ import { APIService } from 'src/app/shared/Services/api.service';
   styleUrls: ['./reply.component.scss'],
 })
 export class ReplyComponent implements OnInit {
-  form!: FormGroup;
-  loading: boolean = false;
-
+  mailData!: FormGroup;
+  body: string = 'Mahmoud';
   resieved: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
-    private api: APIService
+    private api: APIService,
+    private dialogRef: MatDialogRef<ReplyComponent>
   ) {}
   ngOnInit(): void {
     this.resieved = this.data.key;
-    this.form = this.formBuilder.group({
+    this.mailData = this.formBuilder.group({
       emailTo: [this.resieved.email],
       emailToName: [this.resieved.name],
       emailSubject: ['MindMission Response'],
-      emailBody: ['', [Validators.required]],
+      emailBody: ['', Validators.required],
     });
   }
   onSubmit() {
-    if (this.form.invalid) {
+    if (this.mailData.invalid) {
       this.notification.notify('Enter Message First', 'error');
       return;
     } else {
-      const mailData = this.form.value;
-      console.log(mailData);
+      const mailBody = `Dear ${this.resieved.name},
+      
+Thank you for reaching out to us at MindMission! We're glad to hear from you.
 
+In regards to your message, ${this.resieved.message}. 
+
+To answer your question, ${this.mailData.value.emailBody}.
+
+If you have any further questions or concerns, please don't hesitate to reach out to us.
+
+Best regards,
+MindMission Support Team`;
+      this.mailData.patchValue({
+        emailBody: mailBody,
+      });
       this.api
-        .addItem(`Message/reply/${this.resieved.id}`, mailData)
+        .addItem(`Message/reply/${this.resieved.id}`, this.mailData.value)
         .subscribe(() => {
+          this.dialogRef.close();
           this.notification.notify(`Message has been sent`);
         });
     }

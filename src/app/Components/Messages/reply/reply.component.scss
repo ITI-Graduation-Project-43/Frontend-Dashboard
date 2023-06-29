@@ -1,0 +1,33 @@
+.input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+input {
+  padding: 8px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+button {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.submit {
+  background-color: #29d685;
+}
+.close {
+  background-color: #d8274a;
+}
+textarea {
+  resize: none;
+}
