@@ -1,0 +1,18 @@
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrapper-form">
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error *ngIf="form.get('name')?.invalid">Category name is required</mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-select placeholder="Subcategory" formControlName="parentSubCategoryId">
+        <mat-option *ngFor="let subcat of categoryService.subCategories" [value]="subcat.id">
+          {{ subcat.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('parentSubCategoryId')?.invalid">Subcategory is required</mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
