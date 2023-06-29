@@ -11,6 +11,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoryComponent } from './Components/category/category-list/category.component';
 
 @NgModule({
   declarations: [AppComponent, LoginFormComponent, SnackbarComponent],

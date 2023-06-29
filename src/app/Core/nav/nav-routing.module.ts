@@ -4,13 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'bi', pathMatch: 'full' },
   {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('../../Components/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      ),
-  },
-  {
     path: 'student',
     loadChildren: () =>
       import('../../Components/student/student.module').then(
@@ -43,6 +36,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('../../Components/Messages/messages.module').then(
         (m) => m.MessagesModule
+      ),
+  },
+  {
+    path: 'category',
+    loadChildren: () =>
+      import('../../Components/category/category.module').then(
+        (m) => m.CategoryModule
       ),
   },
 ];

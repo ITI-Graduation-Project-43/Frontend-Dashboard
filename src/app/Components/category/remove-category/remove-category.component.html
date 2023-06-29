@@ -1,0 +1,14 @@
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+
+<div class="wrapper">
+  <div mat-dialog-content>
+    Would you like to delete:  <b> {{categoryName}}</b>?
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="cancel()">No</button>
+    <button mat-button cdkFocusInitial (click)="delete(categoryId)" [disabled]="loading">
+      Ok
+      <!-- <app-loader *ngIf="loading" class="loader"></app-loader> -->
+    </button>
+  </div>
+</div>
