@@ -83,8 +83,8 @@
 
   <input type="date" formControlName="updatedAt" [hidden]="true" />
 
-  <button mat-button type="submit" [disabled]="loading">
+  <button mat-button type="submit" [disabled]="loading || form.invalid">
     Submit
-    <app-loader class="loader" *ngIf="loading"></app-loader>
+    <app-loader2 class="loader" *ngIf="loading"></app-loader2>
   </button>
 </form>

@@ -16,6 +16,10 @@
   background: inherit;
 }
 
+.mat-toolbar{
+  background-color: #2b377b;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
@@ -53,11 +57,22 @@ svg {
   cursor: pointer;
 }
 .signout:hover {
-  color: rgb(72, 73, 73);
+  color: wheat;
 }
 .toggle-button {
   background-color: transparent;
   border: none;
   color: white;
   margin-top: 0.5rem;
+}
+
+
+.item-icon{
+  display: flex;
+  align-items: center;
+
+  .mat-icon{
+    margin-left: 1rem;
+    z-index: 2;
+  }
 }

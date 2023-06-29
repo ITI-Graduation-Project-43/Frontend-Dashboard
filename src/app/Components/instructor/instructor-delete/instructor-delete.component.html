@@ -7,8 +7,8 @@
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close (click)="cancel()">No</button>
     <button mat-button cdkFocusInitial (click)="delete(instructorId)" [disabled]="loading">
-      Ok
-      <app-loader *ngIf="loading" class="loader"></app-loader>
+      <span>Ok</span>
+      <app-loader2 *ngIf="loading" class="loader"></app-loader2>
     </button>
   </div>
 </div>

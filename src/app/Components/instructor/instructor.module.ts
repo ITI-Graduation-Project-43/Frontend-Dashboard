@@ -18,6 +18,7 @@ import { InstructorAddComponent } from './instructor-add/instructor-add.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InstructorUpdateComponent } from './instructor-update/instructor-update.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     SharedModule
   ]
 })

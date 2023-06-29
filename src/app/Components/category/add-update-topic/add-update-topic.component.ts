@@ -19,6 +19,7 @@ export class AddUpdateTopicComponent {
   id: number = 0;
   parentSubCategoryId!: number;
   processName!: CategoryProcessName;
+  loading: boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -36,6 +37,7 @@ export class AddUpdateTopicComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     if (this.processName == CategoryProcessName.Add) {
       this.categoryService.AddCategory(this.form.value).subscribe((data) => {
         this.categoryService.getApprovedCategories(CategoryType.Topic).subscribe((data: Category[]) => {
@@ -45,6 +47,12 @@ export class AddUpdateTopicComponent {
         this.snackBar.open('Topic added successfully!', 'ok', {
           duration: 3000
         });
+        this.loading = false;
+      },(error)=>{
+        this.snackBar.open('something went wrong!', 'ok', {
+          duration: 3000
+        });
+        this.dialogRef.close();
       })
     } else {
       this.form.value.id = this.id;
@@ -56,6 +64,12 @@ export class AddUpdateTopicComponent {
         this.snackBar.open('Topic updated successfully!', 'ok', {
           duration: 3000
         });
+        this.loading = false;
+      },(error)=>{
+        this.snackBar.open('something went wrong!', 'ok', {
+          duration: 3000
+        });
+        this.dialogRef.close();
       })
     }
 

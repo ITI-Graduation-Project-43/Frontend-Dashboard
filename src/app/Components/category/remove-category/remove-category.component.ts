@@ -13,7 +13,7 @@ import { CategoryService } from 'src/app/services/category.service';
 export class RemoveCategoryComponent {
   constructor(private categoryService: CategoryService,
     private dialogRef: MatDialogRef<RemoveCategoryComponent>,
-    private snackBar:MatSnackBar) { }
+    private snackBar: MatSnackBar) { }
 
   @Input() categoryName: string = '';
   @Input() categoryType!: CategoryType;
@@ -31,7 +31,16 @@ export class RemoveCategoryComponent {
           this.categoryService.setData(data);
           this.loading = false;
           this.dialogRef.close();
-          this.snackBar.open('Topic updated successfully!', 'ok', {
+          this.snackBar.open('deleted successfully!', 'ok', {
+            duration: 3000
+          });
+          if (this.categoryType == CategoryType.Category)
+            this.categoryService.categories = data;
+          else
+            this.categoryService.subCategories = data;
+        }, (error) => {
+          this.dialogRef.close();
+          this.snackBar.open('something went wrong!', 'ok', {
             duration: 3000
           });
         })

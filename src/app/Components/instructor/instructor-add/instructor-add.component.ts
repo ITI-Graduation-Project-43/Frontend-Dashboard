@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { InstructorService } from '../../../services/instructor.service';
 import { Instructor } from 'src/app/Models/instructor';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-instructor-add',
@@ -18,7 +19,8 @@ export class InstructorAddComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private instructorService: InstructorService,
-    private dialogRef: MatDialogRef<InstructorAddComponent>
+    private dialogRef: MatDialogRef<InstructorAddComponent>,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -33,13 +35,20 @@ export class InstructorAddComponent implements OnInit {
   onSubmit(): void {
     this.loading = true;
     this.newInstructor = this.form.value as Instructor;
-    console.log(this.newInstructor);
     this.instructorService.AddInstructor(this.newInstructor).subscribe(() => {
       this.instructorService.getAllInstructors().subscribe((data) => {
         this.instructorService.setData(data);
         this.loading = false;
         this.dialogRef.close();
+        this.snackBar.open('Instructor added successfully!', 'ok', {
+          duration: 3000
+        });
       });
+    },(error)=>{
+      this.snackBar.open('Try another e-mail!', 'ok', {
+        duration: 3000
+      });
+      this.dialogRef.close();
     });
   }
 }
