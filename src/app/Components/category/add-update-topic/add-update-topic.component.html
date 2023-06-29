@@ -14,5 +14,7 @@
       <mat-error *ngIf="form.get('parentSubCategoryId')?.invalid">Subcategory is required</mat-error>
     </mat-form-field>
   
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">Submit
+      <app-loader2 *ngIf="loading"></app-loader2>
+    </button>
   </form>

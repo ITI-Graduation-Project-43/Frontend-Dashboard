@@ -14,15 +14,16 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class AddUpdateCategoryComponent {
   form!: FormGroup;
-  headerInfo:string = '';
-  name:string = ''
+  headerInfo: string = '';
+  name: string = ''
   id: number = 0;
-  processName!:CategoryProcessName
-  
-  constructor(private fb: FormBuilder, 
-    public categoryService:CategoryService,
+  processName!: CategoryProcessName;
+  loading: boolean = false;
+
+  constructor(private fb: FormBuilder,
+    public categoryService: CategoryService,
     private dialogRef: MatDialogRef<AddUpdateCategoryComponent>,
-    private snackBar:MatSnackBar) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -33,28 +34,41 @@ export class AddUpdateCategoryComponent {
   }
 
   onSubmit() {
-    if(this.processName == CategoryProcessName.Add){
-      this.categoryService.AddCategory(this.form.value).subscribe((data)=>{
-        this.categoryService.getApprovedCategories(CategoryType.Category).subscribe((data:Category[])=>{
+    this.loading = true;
+    if (this.processName == CategoryProcessName.Add) {
+      this.categoryService.AddCategory(this.form.value).subscribe((data) => {
+        this.categoryService.getApprovedCategories(CategoryType.Category).subscribe((data: Category[]) => {
           this.categoryService.setData(data);
           this.categoryService.categories = data;
         })
+        this.loading = false;
         this.dialogRef.close();
         this.snackBar.open('Category added successfully!', 'ok', {
           duration: 3000
         });
+      }, (error) => {
+        this.snackBar.open('something went wrong!', 'ok', {
+          duration: 3000
+        });
+        this.dialogRef.close();
       })
-    }else{
+    } else {
       this.form.value.id = this.id;
-      this.categoryService.updateCategory(this.id, this.form.value).subscribe((data)=>{
-        this.categoryService.getApprovedCategories(CategoryType.Category).subscribe((data:Category[])=>{
+      this.categoryService.updateCategory(this.id, this.form.value).subscribe((data) => {
+        this.categoryService.getApprovedCategories(CategoryType.Category).subscribe((data: Category[]) => {
           this.categoryService.setData(data);
           this.categoryService.categories = data;
         });
+        this.loading = false;
         this.dialogRef.close();
         this.snackBar.open('Category updated successfully!', 'ok', {
           duration: 3000
         });
+      }, (error) => {
+        this.snackBar.open('something went wrong!', 'ok', {
+          duration: 3000
+        });
+        this.dialogRef.close();
       })
     }
   }

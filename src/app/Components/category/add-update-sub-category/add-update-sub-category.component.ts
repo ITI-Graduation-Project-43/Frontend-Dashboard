@@ -19,11 +19,12 @@ export class AddUpdateSubCategoryComponent {
   id: number = 0;
   parentCategoryId!: number;
   processName!: CategoryProcessName;
-  
-  constructor(private fb: FormBuilder, 
-    public categoryService:CategoryService,
+  loading: boolean = false;
+
+  constructor(private fb: FormBuilder,
+    public categoryService: CategoryService,
     private dialogRef: MatDialogRef<AddUpdateSubCategoryComponent>,
-    private snackBar:MatSnackBar) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -35,9 +36,10 @@ export class AddUpdateSubCategoryComponent {
   }
 
   onSubmit() {
-    if(this.processName == CategoryProcessName.Add){
-      this.categoryService.AddCategory(this.form.value).subscribe((data)=>{
-        this.categoryService.getApprovedCategories(CategoryType.SubCategory).subscribe((data:Category[])=>{
+    this.loading = true;
+    if (this.processName == CategoryProcessName.Add) {
+      this.categoryService.AddCategory(this.form.value).subscribe((data) => {
+        this.categoryService.getApprovedCategories(CategoryType.SubCategory).subscribe((data: Category[]) => {
           this.categoryService.setData(data);
           this.categoryService.subCategories = data;
         })
@@ -45,8 +47,14 @@ export class AddUpdateSubCategoryComponent {
         this.snackBar.open('Subcategory added successfully!', 'ok', {
           duration: 3000
         });
+        this.loading = false;
+      }, (error) => {
+        this.snackBar.open('something went wrong!', 'ok', {
+          duration: 3000
+        });
+        this.dialogRef.close();
       })
-    }else{
+    } else {
       this.form.value.id = this.id;
       this.categoryService.updateCategory(this.id, this.form.value).subscribe((data) => {
         this.categoryService.getApprovedCategories(CategoryType.SubCategory).subscribe((data: Category[]) => {
@@ -57,9 +65,13 @@ export class AddUpdateSubCategoryComponent {
         this.snackBar.open('SubCategory updated successfully!', 'ok', {
           duration: 3000
         });
+        this.loading = false;
+      }, (error) => {
+        this.snackBar.open('something went wrong!', 'ok', {
+          duration: 3000
+        });
+        this.dialogRef.close();
       })
     }
-    
   }
-
 }
