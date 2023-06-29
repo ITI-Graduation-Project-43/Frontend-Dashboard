@@ -45,6 +45,13 @@ const routes: Routes = [
         (m) => m.MessagesModule
       ),
   },
+  {
+    path: 'coupon',
+    loadChildren: () =>
+      import('../../Components/coupon/coupon.module').then(
+        (m) => m.CouponModule
+      ),
+  },
 ];
 
 @NgModule({

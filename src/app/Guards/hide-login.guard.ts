@@ -34,7 +34,7 @@ export class HideLoginGuard implements CanActivate {
     if (!this.LocalStorageService.checkTokenExpiration()) {
       return true;
     } else {
-      this.router.navigateByUrl('/dashboard'); // back to the previous route
+      this.router.navigateByUrl('/bi'); // back to the previous route
       return false;
     }
   }

@@ -44,14 +44,6 @@ export class StudentService {
   }
 
   deleteItem(id: string): Observable<APIResponseVM> {
-    // this.httpClient.delete(this.API_URL + '/' + id).subscribe(
-    //   (data) => {
-    //     alert('successfully deleted');
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     alert('Error occurred. Details: ' + err.name + ' ' + err.message);
-    //   }
-    // );
     return this.apiService.deleteItem(`Student/${id}`);
   }
 

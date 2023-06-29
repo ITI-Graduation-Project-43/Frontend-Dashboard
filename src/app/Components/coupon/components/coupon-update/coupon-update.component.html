@@ -1,0 +1,52 @@
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="wrapper-form">
+  <input type="number" formControlName="id" [hidden]="true" />
+  <div class="input-row">
+    <mat-form-field color="accent">
+      <mat-label>Code</mat-label>
+      <input
+        matInput
+        placeholder="Code"
+        formControlName="code"
+        value="{{ data.code }}"
+      />
+      <mat-error *ngIf="form.get('code')?.invalid">Code is required</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input-row">
+    <mat-form-field color="accent">
+      <mat-label>Discount</mat-label>
+      <input
+        matInput
+        placeholder="Discount"
+        formControlName="discount"
+        value="{{ data.discount }}"
+      />
+      <mat-error *ngIf="form.get('discount')?.invalid"
+        >Discount is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div class="input-row">
+    <mat-form-field color="accent">
+      <mat-label>Expires At</mat-label>
+      <input
+        matInput
+        type="date"
+        placeholder="Expires At"
+        formControlName="expiresAt"
+        [value]="data.expiresAt | date : 'yyyy-MM-dd'"
+      />
+      <mat-error *ngIf="form.get('expiresAt')?.invalid"
+        >Expires At is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <input type="date" formControlName="updatedAt" [hidden]="true" />
+  <button mat-button type="submit" [disabled]="loading">
+    Submit
+    <app-loader class="loader" *ngIf="loading"></app-loader>
+  </button>
+</form>

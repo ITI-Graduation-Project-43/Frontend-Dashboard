@@ -1,0 +1,13 @@
+.wrapper {
+  padding: 2rem;
+  .mat-mdc-dialog-content {
+    padding: 0;
+  }
+  .mat-mdc-dialog-actions {
+    margin-left: -0.5rem;
+  }
+
+  .loader {
+    margin-left: 0.5rem;
+  }
+}

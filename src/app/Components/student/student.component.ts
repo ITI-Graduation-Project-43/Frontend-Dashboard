@@ -55,7 +55,6 @@ export class StudentComponent implements OnInit {
     this.loadData();
     this.studentService.getAllStudents().subscribe((data) => {
       this.exampleDatabase.setData(data);
-      this.refreshTable();
     });
   }
 
@@ -66,8 +65,6 @@ export class StudentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
         this.exampleDatabase.data.push(this.studentService.getDialogData());
         this.refreshTable();
       }
@@ -81,14 +78,11 @@ export class StudentComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
           (x) => x.id === this.id
         );
-        // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] =
           this.studentService.getDialogData();
-        // And lastly refresh table
         this.refreshTable();
       }
     });
@@ -108,16 +102,16 @@ export class StudentComponent implements OnInit {
       data: row,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-          (x) => x.id === this.id
-        );
-        // for delete we use splice in order to remove single object from DataService
-        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-        this.refreshTable();
-      }
-    });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result === 1) {
+    //     const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
+    //       (x) => x.id === this.id
+    //     );
+    //     // for delete we use splice in order to remove single object from DataService
+    //     this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+    //     this.refreshTable();
+    //   }
+    // });
   }
 
   private refreshTable() {

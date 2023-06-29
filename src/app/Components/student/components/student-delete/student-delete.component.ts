@@ -19,8 +19,11 @@ export class StudentDeleteComponent {
   delete(): void {
     this.loading = true;
     this.studentService.deleteItem(this.data.id).subscribe((data) => {
-      this.loading = false;
-      this.dialogRef.close();
+      this.studentService.getAllStudents().subscribe((data) => {
+        this.studentService.setData(data);
+        this.loading = false;
+        this.dialogRef.close();
+      });
     });
   }
   cancel() {
