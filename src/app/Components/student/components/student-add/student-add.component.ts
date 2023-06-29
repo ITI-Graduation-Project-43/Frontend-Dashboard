@@ -33,7 +33,6 @@ export class StudentAddComponent {
   onSubmit(): void {
     this.loading = true;
     this.newStudent = this.form.value as Student;
-    console.log(this.newStudent);
     this.studentService.AddStudent(this.newStudent).subscribe(() => {
       this.studentService.getAllStudents().subscribe((data) => {
         this.studentService.setData(data);

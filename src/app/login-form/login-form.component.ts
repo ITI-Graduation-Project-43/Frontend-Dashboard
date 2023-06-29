@@ -60,7 +60,7 @@ export class LoginFormComponent {
             localStorage.setItem('MindMission', encryptedUserData);
             this.notificationService.notify('login');
             this.loging = false;
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/bi');
           } else {
             this.wrongEmailOrPassword = true;
             this.loginForm.markAllAsTouched();

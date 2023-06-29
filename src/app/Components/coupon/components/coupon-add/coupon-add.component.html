@@ -1,0 +1,31 @@
+<app-form-header [headerInfo]="headerInfo"></app-form-header>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrapper-form">
+  <div class="input-row">
+    <mat-form-field>
+      <mat-label>Code</mat-label>
+      <input matInput formControlName="code" />
+      <mat-error>code must be between 3 to 12 letter</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="input-row">
+    <mat-form-field>
+      <mat-label>Discount</mat-label>
+      <input matInput formControlName="discount" />
+      <mat-error>Discount must be less than one.</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="input-row">
+    <mat-form-field>
+      <mat-label>Expires At</mat-label>
+      <input matInput type="date" formControlName="expiresAt" />
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button type="submit" [disabled]="loading">
+    Submit
+    <app-loader *ngIf="loading" class="loader"></app-loader>
+  </button>
+</form>
