@@ -4,4 +4,5 @@ export interface Message {
   email: string;
   message: string;
   isReplied: boolean;
+  CreatedAt: Date;
 }

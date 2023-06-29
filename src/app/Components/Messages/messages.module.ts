@@ -9,7 +9,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ReplyComponent } from './reply/reply.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import {  ReactiveFormsModule } from '@angular/forms';
+import {  MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [MessageListComponent, ReplyComponent],
@@ -22,6 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     SharedModule,
     ReactiveFormsModule,
+    MatSortModule,
+   
   ],
 })
 export class MessagesModule {}

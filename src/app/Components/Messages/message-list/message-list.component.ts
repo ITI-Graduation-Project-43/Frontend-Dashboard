@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Message } from 'src/app/Models/Message';
 import { APIService } from 'src/app/shared/Services/api.service';
 import { ReplyComponent } from '../reply/reply.component';
@@ -22,6 +22,7 @@ export class MessageListComponent implements OnInit {
     'Name',
     'Email',
     'Message',
+    'CreatedAt',
     'isReplyed',
     'Operations',
   ];
@@ -29,7 +30,6 @@ export class MessageListComponent implements OnInit {
   constructor(private apiService: APIService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.fetchData();
-    
   }
 
   //for filtering the table
@@ -44,7 +44,6 @@ export class MessageListComponent implements OnInit {
     const observer = {
       next: (data: any) => {
         this.Messages = data.items;
-        console.log(this.Messages);
         this.dataSource = new MatTableDataSource(this.Messages);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -53,7 +52,9 @@ export class MessageListComponent implements OnInit {
         console.log(error);
       },
     };
-    this.apiService.getAllItem('Message').subscribe(observer);
+    this.apiService
+      .getAllItem(`Message?PageNumber=${1}&PageSize=${100}`)
+      .subscribe(observer);
   }
 
   openDialog(
