@@ -1,0 +1,27 @@
+.wrapper-form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+
+  .input-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  button {
+    background-color: #2b377b;
+    color: white;
+    height: 3rem;
+
+    &:disabled {
+      background-color: #2b377b70;
+    }
+
+    .loader {
+      margin-left: 0.5rem;
+    }
+  }
+}

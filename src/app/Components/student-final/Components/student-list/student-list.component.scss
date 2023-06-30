@@ -1,0 +1,43 @@
+.full-width-table {
+  width: 100%;
+  overflow: scroll;
+}
+
+.mat-table-responsive {
+  overflow-x: auto;
+}
+.filter {
+  padding: 10px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+th,
+td {
+  vertical-align: middle;
+}
+button {
+  padding: 5px 10px;
+  background-color: #2b377b70;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.bg-green {
+  background-color: #26d9b9;
+}
+
+.bg-red {
+  background-color: #d8274a;
+}
+p {
+  padding: 5px 10px;
+  color: white;
+  text-align: center;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+.mat-icon {
+  cursor: pointer;
+}

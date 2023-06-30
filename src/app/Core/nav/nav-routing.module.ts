@@ -3,13 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'bi', pathMatch: 'full' },
-  {
-    path: 'student',
-    loadChildren: () =>
-      import('../../Components/student/student.module').then(
-        (m) => m.StudentModule
-      ),
-  },
+
   {
     path: 'instructor',
     loadChildren: () =>
@@ -43,13 +37,20 @@ const routes: Routes = [
     loadChildren: () =>
       import('../../Components/category/category.module').then(
         (m) => m.CategoryModule
-        ),
+      ),
   },
   {
     path: 'coupon',
     loadChildren: () =>
       import('../../Components/coupon/coupon.module').then(
         (m) => m.CouponModule
+      ),
+  },
+  {
+    path: 'students',
+    loadChildren: () =>
+      import('../../Components/student-final/student-final.module').then(
+        (m) => m.StudentFinalModule
       ),
   },
 ];
