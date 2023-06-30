@@ -33,14 +33,16 @@ export class StudentService {
   }
   /** CRUD METHODS */
 
-  getAllStudents(): Observable<Student[]> {
-    return this.apiService.getAllItem('Student').pipe(
-      map((data: APIResponseVM) => data.items as Student[]),
-      tap((students: Student[]) => {
-        this.data = students;
-        this.dataChange.next(students);
-      })
-    );
+  getAllStudents(pageNumber: number, pageSize:number): Observable<Student[]> {
+    return this.apiService
+      .getAllItem(`Student?PageNumber=${pageNumber}&PageSize=${pageSize}`)
+      .pipe(
+        map((data: APIResponseVM) => data.items as Student[]),
+        tap((students: Student[]) => {
+          this.data = students;
+          this.dataChange.next(students);
+        })
+      );
   }
 
   deleteItem(id: string): Observable<APIResponseVM> {

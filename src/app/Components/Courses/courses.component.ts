@@ -66,8 +66,8 @@ export class CoursesComponent implements OnInit {
 
   onPageChange(event: PageEvent) {
     this.loading = true;
-    const startIndex = event.pageIndex * event.pageSize;
-    const endIndex = startIndex + event.pageSize;
+    const startIndex = event.pageIndex+1;
+    const endIndex = event.pageSize;
     this.fetchData(startIndex, endIndex);
   }
 }

@@ -1,9 +1,5 @@
-import {
-  Component,
-  ViewChild,
-  OnInit,
-} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,8 +34,7 @@ export class InstructorListComponent implements OnInit {
     error: (error) => {
       console.log(error);
     },
-    complete: () => {
-    },
+    complete: () => {},
   };
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -115,4 +110,6 @@ export class InstructorListComponent implements OnInit {
     const dialogRef = this.dialog.open(InstructorUpdateComponent);
     dialogRef.componentInstance.instructor = instructor;
   }
+
+
 }
