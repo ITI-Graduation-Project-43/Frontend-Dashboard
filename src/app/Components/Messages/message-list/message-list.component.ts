@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -40,12 +40,11 @@ export class MessageListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  fetchData() {
+  fetchData(pageNumber: number = 1, pageSize: number = 5) {
     const observer = {
       next: (data: any) => {
         this.Messages = data.items;
         this.dataSource = new MatTableDataSource(this.Messages);
-        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: (error: any) => {
@@ -53,7 +52,7 @@ export class MessageListComponent implements OnInit {
       },
     };
     this.apiService
-      .getAllItem(`Message?PageNumber=${1}&PageSize=${100}`)
+      .getAllItem(`Message?PageNumber=${pageNumber}&PageSize=${pageSize}`)
       .subscribe(observer);
   }
 
@@ -70,5 +69,10 @@ export class MessageListComponent implements OnInit {
         key: data,
       },
     });
+  }
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex + 1;
+    const endIndex = event.pageSize;
+    this.fetchData(startIndex, endIndex);
   }
 }
