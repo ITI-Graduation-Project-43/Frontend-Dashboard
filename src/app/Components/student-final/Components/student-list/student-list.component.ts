@@ -17,6 +17,7 @@ import { StudentDetailComponent } from '../student-detail/student-detail.compone
   styleUrls: ['./student-list.component.scss'],
 })
 export class StudentListComponent implements OnInit {
+  loading: boolean = true;
   Students: Student[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -46,6 +47,7 @@ export class StudentListComponent implements OnInit {
   fetchData(pageNumber: number = 1, pageSize: number = 5) {
     const observer = {
       next: (data: any) => {
+        this.loading = false;
         this.Students = data.items;
         this.dataSource = new MatTableDataSource(this.Students);
         this.dataSource.sort = this.sort;

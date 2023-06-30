@@ -24,6 +24,7 @@ import { CouponDeleteComponent } from './components/coupon-delete/coupon-delete.
   styleUrls: ['./coupon.component.scss'],
 })
 export class CouponComponent implements OnInit {
+  loading: boolean = true;
   displayedColumns = [
     'id',
     'Code',
@@ -50,6 +51,7 @@ export class CouponComponent implements OnInit {
     this.loadData();
     this.couponService.getAllCoupons().subscribe((data) => {
       this.exampleDatabase.setData(data);
+      this.loading = false;
     });
   }
 

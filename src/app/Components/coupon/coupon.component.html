@@ -1,4 +1,5 @@
-<div class="wrapper">
+<app-loader *ngIf="loading"></app-loader>
+<div [hidden]="loading" class="wrapper">
   <div class="mat-elevation-z8">
     <div class="form">
       <mat-form-field floatPlaceholder="never" color="accent">
