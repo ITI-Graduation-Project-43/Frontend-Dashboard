@@ -1,14 +1,18 @@
+section {
+  width: 400px;
+}
 .wrapper-form {
   display: flex;
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
+  width: 100%;
 
   .input-row {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     gap: 0.5rem;
+    width: 100% !important;
   }
 
   button {
