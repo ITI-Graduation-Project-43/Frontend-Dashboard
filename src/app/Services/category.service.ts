@@ -9,19 +9,18 @@ import { SubCategoryDataSource } from '../Components/category/sub-category-list/
 import { TopicDataSource } from '../Components/category/topic-list/topic-datasource';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
+  loading: boolean = true;
   CategorydataSource!: CategoryDataSource;
   SubCategorydataSource!: SubCategoryDataSource;
   TopicdataSource!: TopicDataSource;
 
-  categories:Category[] = [];
-  subCategories:Category[] = [];
-
+  categories: Category[] = [];
+  subCategories: Category[] = [];
 
   private dataSubject = new BehaviorSubject<any>(null);
-
 
   setData(data: any) {
     this.dataSubject.next(data);
@@ -30,11 +29,13 @@ export class CategoryService {
   getData() {
     return this.dataSubject.asObservable();
   }
-  constructor(private apiService:APIService) { }
+  constructor(private apiService: APIService) {}
 
-  getApprovedCategories(type:CategoryType): Observable<Category[]> {
+  getApprovedCategories(type: CategoryType): Observable<Category[]> {
     return this.apiService
-      .getAllItem(`category/type/${CategoryType[type]}?PageNumber=1&PageSize=450`)
+      .getAllItem(
+        `category/type/${CategoryType[type]}?PageNumber=1&PageSize=450`
+      )
       .pipe(map((data: APIResponseVM) => data.items as Category[]));
   }
 
@@ -44,12 +45,11 @@ export class CategoryService {
       .pipe(map((data: APIResponseVM) => data.items as Category[]));
   }
 
-  removeCategory(id:number): Observable<APIResponseVM> {
-    return this.apiService
-      .deleteItem(`category/${id}`);
+  removeCategory(id: number): Observable<APIResponseVM> {
+    return this.apiService.deleteItem(`category/${id}`);
   }
 
-  updateCategory(id:number, category:Category): Observable<[]> {
+  updateCategory(id: number, category: Category): Observable<[]> {
     return this.apiService
       .replaceItem(`category`, id, category)
       .pipe(map((data: APIResponseVM) => data.items));

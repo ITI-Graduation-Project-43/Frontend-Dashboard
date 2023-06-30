@@ -1,4 +1,5 @@
-<div class="wrapper">
+<app-loader *ngIf="loading"></app-loader>
+<div [hidden]="loading" class="wrapper">
   <div class="mat-elevation-z8">
     <mat-form-field>
       <mat-label>Filter</mat-label>

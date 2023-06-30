@@ -18,6 +18,7 @@ import { Instructor } from '../../../Models/instructor';
   styleUrls: ['./instructor-list.component.css'],
 })
 export class InstructorListComponent implements OnInit {
+  loading: boolean = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Instructor>;
@@ -25,11 +26,13 @@ export class InstructorListComponent implements OnInit {
 
   observer: Observer<Instructor[]> = {
     next: (insData: Instructor[]) => {
+    
       this.instructorService.dataSource.data = insData;
       this.instructorService.dataSource.sort = this.sort;
       this.instructorService.dataSource.paginator = this.paginator;
       this.table.dataSource = this.instructorService.dataSource;
       this.resetFilter = insData;
+      this.loading = false;
     },
     error: (error) => {
       console.log(error);
@@ -110,6 +113,4 @@ export class InstructorListComponent implements OnInit {
     const dialogRef = this.dialog.open(InstructorUpdateComponent);
     dialogRef.componentInstance.instructor = instructor;
   }
-
-
 }

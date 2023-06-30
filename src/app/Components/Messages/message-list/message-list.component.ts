@@ -14,6 +14,7 @@ import { ReplyComponent } from '../reply/reply.component';
   styleUrls: ['./message-list.component.scss'],
 })
 export class MessageListComponent implements OnInit {
+  loading: boolean = true;
   Messages: Message[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -46,6 +47,7 @@ export class MessageListComponent implements OnInit {
         this.Messages = data.items;
         this.dataSource = new MatTableDataSource(this.Messages);
         this.dataSource.sort = this.sort;
+        this.loading = false;
       },
       error: (error: any) => {
         console.log(error);

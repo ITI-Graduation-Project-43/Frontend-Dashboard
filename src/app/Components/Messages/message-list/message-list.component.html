@@ -1,4 +1,5 @@
-<div>
+<app-loader *ngIf="loading"></app-loader>
+<div *ngIf="!loading">
   <div class="ms-2 pt-4 filter">
     <mat-label>Filter</mat-label>
     <input

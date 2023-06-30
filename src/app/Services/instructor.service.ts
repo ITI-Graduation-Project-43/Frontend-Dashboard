@@ -28,7 +28,7 @@ export class InstructorService {
 
   getAllInstructors(): Observable<Instructor[]> {
     return this.apiService
-      .getAllItem('Instructor')
+      .getAllItem('Instructor?PageNumber=1&PageSize=200')
       .pipe(map((data: APIResponseVM) => data.items as Instructor[]));
   }
 
