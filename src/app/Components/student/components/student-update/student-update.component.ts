@@ -37,14 +37,14 @@ export class StudentUpdateComponent {
     this.studentService
       .UpdateStudent(this.form.value, this.data.id)
       .subscribe(() => {
-        this.studentService.getAllStudents().subscribe((data) => {
+        this.studentService.getAllStudents(1, 5).subscribe((data) => {
           this.studentService.setData(data);
         });
       });
     this.studentService
       .UpdateStudent(this.form.value, this.data.id)
       .subscribe(() => {
-        this.studentService.getAllStudents().subscribe((data) => {
+        this.studentService.getAllStudents(1, 5).subscribe((data) => {
           this.studentService.setData(data);
           this.loading = false;
           this.dialogRef.close();

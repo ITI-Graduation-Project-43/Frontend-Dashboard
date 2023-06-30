@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DataSource } from '@angular/cdk/collections';
 import { StudentAddComponent } from './components/student-add/student-add.component';
@@ -39,6 +39,7 @@ export class StudentComponent implements OnInit {
   dataSource!: StudentDataSource;
   index!: number;
   id!: string;
+  loading: boolean = true;
 
   constructor(
     public httpClient: HttpClient,
@@ -53,9 +54,7 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    this.studentService.getAllStudents().subscribe((data) => {
-      this.exampleDatabase.setData(data);
-    });
+    this.fetchData();
   }
 
   addNew() {
@@ -101,17 +100,6 @@ export class StudentComponent implements OnInit {
     const dialogRef = this.dialog.open(StudentDeleteComponent, {
       data: row,
     });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result === 1) {
-    //     const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
-    //       (x) => x.id === this.id
-    //     );
-    //     // for delete we use splice in order to remove single object from DataService
-    //     this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-    //     this.refreshTable();
-    //   }
-    // });
   }
 
   private refreshTable() {
@@ -137,6 +125,19 @@ export class StudentComponent implements OnInit {
         }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+  }
+  fetchData(pageNumber: number = 1, pageSize: number = 5) {
+    this.studentService
+      .getAllStudents(pageNumber, pageSize)
+      .subscribe((data) => {
+        this.exampleDatabase.setData(data);
+        this.loading = false;
+      });
+  }
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex + 1;
+    const endIndex = event.pageSize;
+    this.fetchData(startIndex, endIndex);
   }
 }
 
@@ -174,7 +175,7 @@ export class StudentDataSource extends DataSource<Student> {
       this._paginator.page,
     ];
 
-    this._exampleDatabase.getAllStudents();
+    // this._exampleDatabase.getAllStudents(1, 5);
 
     return merge(...displayDataChanges).pipe(
       map(() => {

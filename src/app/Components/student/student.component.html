@@ -84,15 +84,16 @@
     </div>
 
     <div class="no-results" *ngIf="dataSource.renderedData.length == 0">
-      No results
+      <app-loader class="loader" *ngIf="loading"></app-loader>
     </div>
 
     <mat-paginator
       #paginator
-      [length]="dataSource.filteredData.length"
+      [length]="325"
       [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20, 100]"
+      (page)="onPageChange($event)"
       aria-label="Select page"
     ></mat-paginator>
   </div>

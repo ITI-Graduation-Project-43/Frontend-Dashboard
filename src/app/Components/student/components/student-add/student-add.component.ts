@@ -34,7 +34,7 @@ export class StudentAddComponent {
     this.loading = true;
     this.newStudent = this.form.value as Student;
     this.studentService.AddStudent(this.newStudent).subscribe(() => {
-      this.studentService.getAllStudents().subscribe((data) => {
+      this.studentService.getAllStudents(1, 5).subscribe((data) => {
         this.studentService.setData(data);
         this.loading = false;
         this.dialogRef.close();
