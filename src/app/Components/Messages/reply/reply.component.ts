@@ -15,9 +15,9 @@ export class ReplyComponent implements OnInit {
   mailData!: FormGroup;
   resieved: any;
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
+    @Inject(MAT_DIALOG_DATA) private data: any,
     private api: APIService,
     private dialogRef: MatDialogRef<ReplyComponent>
   ) {}
